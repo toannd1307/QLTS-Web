@@ -1,0 +1,91 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm"
+    (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="'Thêm tài sản vào phiếu dự trù mua sắm'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenTaiSan')" [title]="'Tên tài sản *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenTaiSan" name="tenTaiSan" formControlName='tenTaiSan' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('tenTaiSan')">
+                    </dft-validation>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('productNumber')" [title]="'Product number *'">
+                    </dft-label-validation>
+                    <input type="text" id="productNumber" name="productNumber" formControlName='productNumber' maxlength="50"
+                        pInputText />
+                    <dft-validation [control]="form.get('productNumber')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('hangSanXuat')" [title]="'Hãng sản xuất *'">
+                    </dft-label-validation>
+                    <input type="text" id="hangSanXuat" name="hangSanXuat" formControlName='hangSanXuat' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('hangSanXuat')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('nhaCungCap')" [title]="'Nhà cung cấp *'">
+                    </dft-label-validation>
+                    <input type="text" id="nhaCungCap" name="nhaCungCap" formControlName='nhaCungCap' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('nhaCungCap')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('soLuong')" [title]="'Số lượng *'">
+                    </dft-label-validation>
+                    <input type="number" id="soLuong" name="soLuong" formControlName='soLuong' maxlength="4"
+                        pInputText />
+                    <dft-validation [control]="form.get('soLuong')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('donGia')" [title]="'Đơn giá *'">
+                    </dft-label-validation>
+                    <input decimal type="text" id="donGia" name="donGia" formControlName='donGia' maxlength="16"
+                        pInputText />
+                    <dft-validation [control]="form.get('donGia')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('mucDichSuDung')" [title]="'Mục đích sử dụng *'">
+                    </dft-label-validation>
+                    <textarea formControlName="mucDichSuDung" class="form-control" id="mucDichSuDung" rows="4"
+                        maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('mucDichSuDung')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <abp-modal-footer [cancelDisabled]="saving" [saveHidden]="isView" [saveHidden]="isView"
+        [cancelLabel]="isView?'Đóng':'Hủy'" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

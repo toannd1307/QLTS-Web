@@ -1,0 +1,75 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + createInputDto.tenToChuc : 'Cập nhật: ' + createInputDto.tenToChuc) : 'Thêm mới Đơn vị'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('maToChuc')" [title]="'Mã đơn vị *'">
+                    </dft-label-validation>
+                    <input maxlength="50" type="text" id="maToChuc" name="maToChuc" formControlName='maToChuc'
+                        pInputText />
+                    <dft-validation [control]="form.get('maToChuc')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="id">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('maHexa')" [title]="'Mã Hexa *'">
+                    </dft-label-validation>
+                    <input maxlength="2" type="text" id="maHexa" name="maHexa" formControlName='maHexa' pInputText />
+                    <dft-validation [control]="form.get('maHexa')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenToChuc')" [title]="'Tên đơn vị *'">
+                    </dft-label-validation>
+                    <input maxlength="255" type="text" id="tenToChuc" name="tenToChuc" formControlName='tenToChuc'
+                        pInputText />
+                    <dft-validation [control]="form.get('tenToChuc')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('trucThuocToChucId')" [title]="'Đơn vị quản lý *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="trucThuocToChucId" [options]="toChucItems"
+                        [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="false"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('trucThuocToChucId')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('viTriDiaLyId')" [title]="'Địa chỉ *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="viTriDiaLyId" [options]="viTriDiaLyItems"
+                        [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="false"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('viTriDiaLyId')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')" [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control" id="ghiChu" rows="4"
+                        maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'" [cancelDisabled]="saving"
+        (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

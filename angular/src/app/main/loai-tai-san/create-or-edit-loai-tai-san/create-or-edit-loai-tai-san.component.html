@@ -1,0 +1,53 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + createInputDto.ten : 'Cập nhật: ' + createInputDto.ten) : 'Thêm mới Loại tài sản'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ma')" [title]="'Mã loại tài sản *'">
+                    </dft-label-validation>
+                    <input maxlength="50" type="text" id="ma" name="ma" formControlName='ma' pInputText />
+                    <dft-validation [control]="form.get('ma')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ten')" [title]="'Tên loại tài sản *'">
+                    </dft-label-validation>
+                    <input maxlength="255" type="text" id="ten" name="ten" formControlName='ten' pInputText />
+                    <dft-validation [control]="form.get('ten')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('taiSanChaId')" [title]="'Thuộc loại tài sản'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [disabled]="isView" [(value)]="createInputDto.taiSanChaId"
+                        [items]="loaiTaiSanItems">
+                    </app-dropdown-treeview-select>
+                    <dft-validation [control]="form.get('taiSanChaId')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')" [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control" id="ghiChu" rows="4"
+                        maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <abp-modal-footer [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'" [cancelDisabled]="saving" (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

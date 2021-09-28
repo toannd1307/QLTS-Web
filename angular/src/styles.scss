@@ -1,0 +1,1167 @@
+@import "./scss/mixins";
+@import "./scss/variables";
+@import "./scss/primeng";
+@import "./scss/generate";
+// Modal Start
+.modal-body {
+  padding: 24px 24px 0px 24px;
+}
+
+.fixed-modal-height {
+    max-height: calc(100vh - 215px);
+    overflow-y: auto;
+}
+
+.fixed-modal-height-full {
+    height: calc(100vh - 215px);
+    overflow-y: auto;
+}
+
+// Modal End
+.ui-treetable-scrollable-body {
+  min-height: 250px !important;
+}
+
+.text-ok {
+    font-weight: normal;
+}
+
+.width-btn-footer {
+    min-width: 70px !important;
+}
+
+.btn-save-background {
+    background-color: #5867dd !important;
+    border-color: #5867dd !important;
+}
+
+.btn-cancle-background {
+    background: white !important;
+    border-color: #ebedf2 !important;
+    color: $text-color !important;
+}
+
+.body {
+    font-family: Quicksand, sans-serif !important;
+}
+
+body .ui-widget {
+    font-family: Quicksand, sans-serif !important;
+    font-size: 16px !important;
+    text-decoration: none;
+}
+
+.visibility-hidden {
+    visibility: hidden !important;
+}
+
+body a {
+    cursor: pointer !important;
+}
+
+// Hiển thị cuộn ngang table
+.hien-thi-cuon-ngang {
+    overflow-x: auto !important;
+}
+
+.text-more {
+    position: relative;
+}
+
+// .dropdown-menu.show {
+//   width: 100%;
+// }
+.ngx-dropzone-label {
+    word-wrap: break-word !important;
+}
+
+.width100 {
+    width: 100% !important;
+}
+
+.nav-sidebar .nav-link p,
+.nav-sidebar .nav-link i {
+    color: #000;
+}
+
+// Modal End
+// table dropdown-menu
+.ui-treetable-scrollable-body {
+  min-height: 250px !important;
+}
+
+.text-ok {
+  font-weight: normal;
+}
+
+.width-btn-footer {
+  min-width: 70px !important;
+}
+
+.btn-save-background {
+  background-color: #5867dd !important;
+  border-color: #5867dd !important;
+}
+
+.btn-cancle-background {
+    color: #333333 !important;
+    background: #F5F5F5;
+    border: 1px solid rgba(83, 89, 95, 0.2);
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.body {
+  font-family: 'SF Pro Display' !important;
+}
+
+body .ui-widget {
+  font-family: 'SF Pro Display' !important;
+  text-decoration: none;
+}
+
+.visibility-hidden {
+  visibility: hidden !important;
+}
+
+body a {
+  cursor: pointer !important;
+}
+
+// Hiển thị cuộn ngang table
+.hien-thi-cuon-ngang {
+  overflow-x: auto !important;
+}
+
+.text-more {
+  position: relative;
+}
+
+// .dropdown-menu.show {
+//   width: 100%;
+// }
+
+.ngx-dropzone-label {
+  word-wrap: break-word !important;
+}
+
+.brand-link .brand-image {
+  float: left;
+  line-height: 0.8;
+  margin-left: 0.8rem;
+  margin-right: 0.5rem;
+  margin-top: 8px;
+  max-height: 20px;
+  width: auto;
+}
+
+.img-circle {
+  border-radius: 0% !important;
+}
+
+.user-panel img {
+  height: auto;
+  width: 2.1rem;
+  border-radius: 50% !important;
+}
+
+.user-panel{
+border: none !important;
+}
+
+.nav-user-menu .user-image {
+  border-radius: 50% !important;
+  float: left;
+  height: 2rem;
+  margin-top: -4px;
+  width: 2rem;
+}
+
+.esri-menu__list-item {
+  font-family: 'SF Pro Display' !important;
+}
+
+.esri-search--multiple-sources .esri-search__input {
+  font-family: 'SF Pro Display' !important;
+}
+
+.esri-widget {
+  font-family: 'SF Pro Display' !important;
+}
+
+.esri-popup__header-title {
+  font-family: 'SF Pro Display' !important;
+}
+
+.esri-view-width-xlarge .esri-popup__main-container {
+  border-radius: 35px !important;
+}
+.esri-ui .esri-popup {
+  border-radius: 35px !important;
+}
+
+.esri-popup__header-container--button {
+  border-radius: 35px !important;
+}
+.esri-popup__header .esri-popup__header-container.esri-popup__header-container--button{
+  border: none;
+  background-color: transparent;
+}
+
+.trang-thai {
+  border-radius: 8px;
+  padding: 1px 8px;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  // Trạng thái hiệu lực
+  &.status-4 {
+      background-color: #c8e6c9;
+      color: #34923a;
+  }
+
+  &.status-1 {
+      background-color: #ffe2e5;
+      color: #f64260;
+  }
+
+  &.status-2 {
+      background-color: #595764;
+      color: #faab52;
+  }
+
+  &.status-3 {
+    background-color: #6c6172;
+    color: #ecf75e;
+  }
+
+  &.status-5 {
+      background-color: #c8e6c9;
+      color: #474e57;
+  }
+}
+.button-reject{
+  background-color: #d33 !important;
+  border-color: #d33 !important;
+  border-radius: 5px !important;
+}
+.color-icon{
+  color: red;
+}
+.resize-select-button .ui-button.ui-widget.ui-state-default.ui-button-text-only.ng-star-inserted > span{
+  padding: 5px !important;
+}
+
+.card-body {
+  border-radius: 30px !important;
+}
+
+.card-footer:last-child {
+  border-radius: 0px 0px 30px 30px !important;
+}
+
+.card-footer {
+  background: #ffffff;
+  border: none;
+}
+// Dashboard
+.das {
+  box-shadow: 0px 0px 12px rgb(35 123 211 / 15%);
+  border-radius: 20px;
+  height: 100px;
+  font-family: 'Exo2-Regualar';
+}
+
+// menu
+
+body .ui-megamenu {
+  background: none !important;
+}
+
+.ui-megamenu-root-list>.ui-menuitem {
+  position: unset !important;
+}
+.ui-megamenu-col-12 {
+  height: 800px !important;
+}
+.canhbao{
+  border: solid 2px;
+  margin-top: 20px;
+}
+.legend-labels{
+  text-align: center !important;
+}
+
+
+/////////
+.content-wrapper {
+  // background-image: url(./assets/img/pattern.png) !important;
+  background-size: cover !important;
+  background: none !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+.elevation-4 {
+box-shadow: none !important;
+}
+
+body .ui-megamenu .ui-megamenu-panel {
+background-color: #5699DC !important;
+border: none !important;
+left: 256px !important;
+width: 256px;
+}
+
+.ui-megamenu-submenu {
+  width: 15.5em !important;
+}
+
+.ui-menuitem-link-active {
+  background-color: #fff;
+  color: #237BD3 !important;
+  font-weight: bold;
+}
+
+body:not(.layout-fixed) .main-sidebar {
+  background: linear-gradient(101deg, #237BD3 17.54%, #7CB3E9 100.66%);
+  box-shadow: 0px 0px 16px rgba(35, 123, 211, 0.4);
+  width: 256px;
+}
+
+.ui-megamenu-root-list {
+  box-shadow: 5px 0px 25px 0px rgb(35 123 211 / 26%) !important
+}
+
+body .ui-megamenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text {
+  color: #237BD3 !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+}
+
+body .ui-megamenu .ui-menuitem-link .ui-menuitem-icon {
+color: #ffffff;
+font-size: 20px;
+}
+
+body .ui-megamenu .ui-menuitem-link .ui-menuitem-text {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+body .ui-megamenu .ui-menuitem {
+  margin: 15px 20px 0px 20px;
+}
+
+.brand-link {
+  border: none !important;
+  background: white;
+}
+
+.ui-megamenu-grid{
+  background: linear-gradient(84.18deg, #237BD3 2.54%, #7CB3E9 100.66%) !important;
+}
+// Table
+.card {
+border-radius: 30px !important;
+margin-left: 10px !important;
+margin-right: 10px !important;
+}
+
+.ui-table .ui-paginator-bottom {
+  border-radius: 0 0 30px 30px !important;
+}
+
+.ui-treetable-scrollable-body {
+  min-height: 250px !important;
+}
+
+// Input
+.input-group > .form-control:not(:first-child), .input-group > .custom-select:not(:first-child) {
+  border-radius: 0px 8px 8px 0px !important;
+  box-sizing: border-box !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(83, 89, 95, 0.2) !important;
+}
+
+.card-header {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    font-size: 14px;
+    border: none !important;
+    font-family: 'SF Pro Display' !important;
+    padding: 24px !important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.content-header {
+  font-family: 'SF Pro Display' !important;
+  padding: 20px 35px 15px 30px !important;
+}
+
+body .ui-dropdown {
+  border: 1px solid rgba(83, 89, 95, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+body .ui-corner-all {
+  border-radius: 8px !important;
+}
+
+body .ui-dropdown .ui-dropdown-trigger {
+  border-radius: 8px !important;
+  background-color: transparent !important;
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+  color: #0A4874 !important;
+  margin-bottom: 8px !important;
+}
+
+.ui-fluid .ui-inputtext {
+border: 1px solid rgba(0, 0, 0, 0.15);
+height: 48px;
+}
+
+body .ui-dropdown.ui-dropdown-clearable .ui-dropdown-label {
+  border: none !important;
+  height: 45px;
+  padding-top: 10px;
+}
+
+body .ui-fluid .ui-calendar.ui-calendar-w-btn input.ui-inputtext {
+  width: calc(100% - 3.222em);
+  border-radius: 8px;
+}
+
+.form-control {
+  border-radius: 8px !important;
+}
+
+body .ui-state-disabled, body .ui-widget:disabled {
+  background-color: #F5F5F5 !important;
+}
+
+// Độ rộng input
+.input-group > .form-control, .input-group > .form-control-plaintext, .input-group > .custom-select, .input-group > .custom-file {
+  height: 48px !important;
+}
+.ui-fluid .ui-dropdown, .ui-fluid p-dropdown {
+  height: 48px;
+}
+// Modal
+.modal-content {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px !important;
+}
+body .ui-multiselect .ui-multiselect-trigger {
+  border-radius: 8px !important;
+  background-color: transparent !important;
+}
+.ui-fluid .ui-multiselect {
+  height: 48px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+select {
+  word-wrap: normal;
+  height: 48px !important;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+// Tapset
+body .ui-tabview.ui-tabview-top {
+  padding-bottom: 25px !important;
+}
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-left .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-right .ui-tabview-nav li.ui-state-active {
+  background: #fff !important;
+  height: 48px;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active a, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li.ui-state-active a, body .ui-tabview.ui-tabview-left .ui-tabview-nav li.ui-state-active a, body .ui-tabview.ui-tabview-right .ui-tabview-nav li.ui-state-active a {
+  color: #237BD3 !important;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li, body .ui-tabview.ui-tabview-left .ui-tabview-nav li, body .ui-tabview.ui-tabview-right .ui-tabview-nav li {
+  border: none !important;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+  margin-right: 2px;
+  padding-top: 8px;
+  height: 48px;
+  color:#F5F5F5;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li:first-child {
+  border-top-left-radius: 30px;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav {
+  background-color: #F4F4F4;
+  margin: 0px !important;
+  padding-bottom: 5px;
+  border-radius: 30px 30px 0px 0px !important;
+}
+
+body .ui-tabview .ui-tabview-panels {
+  border: none !important;
+  padding: 0px;
+}
+.ui-tabview
+{
+  padding: 0px;
+}
+body .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background: linear-gradient(
+    56.18deg
+    , #237BD3 2.54%, #7CB3E9 100.66%) !important;
+  border-radius: 8px 8px 0px 0px !important;
+  height: 48px;
+  padding: 4px;
+}
+
+.ui-datepicker-trigger.ui-button {
+  height: 48px !important;
+}
+
+// Btn Thêm
+body .ui-button {
+  background: linear-gradient(
+56.18deg
+, #237BD3 2.54%, #7CB3E9 100.66%) !important;
+  border-radius: 8px;
+}
+
+.btn{
+  height: 48px !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(
+56.18deg
+, #237BD3 2.54%, #7CB3E9 100.66%);
+  box-shadow: 0px 0px 12px rgb(35 123 211 / 15%);
+  border-radius: 8px;
+}
+
+.btn-success {
+  color: #fff;
+  background: linear-gradient(
+46.62deg
+, #39BF9F 0%, #41D9B4 93.64%);
+  box-shadow: 0px 0px 12px rgb(35 123 211 / 15%);
+  border-radius: 8px;
+}
+
+.btn:hover {
+  color: #212529 !important;
+  text-decoration: none !important;
+}
+
+.bg-blue.btn {
+  /* border-color: #0062cc; */
+  /* color: #ececec; */
+  background: linear-gradient(
+56.18deg
+, #237BD3 2.54%, #7CB3E9 100.66%);
+  border-radius: 8px 0px 0px 8px;
+}
+
+.bg-blue.btn:hover {
+  border-color: #0062cc !important;
+  color: #ececec !important;
+}
+
+body .ui-chkbox .ui-chkbox-box {
+  border-radius: 3px !important;
+}
+.btn-secondary {
+  background: #FFFFFF !important;
+/* #53595F (stroke) */
+
+border: 1px solid rgba(83, 89, 95, 0.2) !important;
+box-sizing: border-box !important;
+border-radius: 8px !important;
+color: #237BD3 !important;
+font-weight: 600 !important;
+font-size: 14px !important;
+line-height: 22px !important;
+}
+.btn-danger{
+  background: #FFFFFF !important;
+  /* #53595F (stroke) */
+  border: 1px solid rgba(83, 89, 95, 0.2) !important;
+  box-sizing: border-box !important;
+  border-radius: 8px !important;
+  color: #D91F2C !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  line-height: 22px !important;
+}
+
+body .ui-dropdown .ui-dropdown-label {
+  border: none !important;
+  height: 45px !important;
+}
+
+.content-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+  font-size: 32px !important;
+  line-height: 46px;
+  font-family: 'Exo2-Regualar';
+  color: #237BD3 !important;
+}
+.modal-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  color: #237BD3 !important;
+}
+
+.modal-header .close {
+  padding: 0rem 0rem;
+  margin: 0rem 0rem -1rem auto;
+  background: linear-gradient(
+46.62deg
+, #D91F2C 0%, #EC7981 93.64%);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+// table
+body .ui-table .ui-table-thead > tr > th {
+  background-color: #F7FAFB;
+  color: #0A4874;
+  font-size: 14px;
+  font-family: 'Exo2-Regualar' !important;
+  padding: 13px 0px 13px 16px;
+  border-bottom: 1px solid #D3e5f8 !important;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+}
+body .ui-table .ui-table-tbody > tr:nth-child(even) {
+  background-color: #FFFFFF;
+  border-top: 1px solid #D3e5f8 !important;
+}
+body .ui-table .ui-table-tbody > tr {
+  border-bottom: 1px solid #D3e5f8 !important;
+}
+body .ui-table .ui-table-tbody > tr > td {
+  // padding: 13px 0px 13px 16px;
+  font-weight: normal;
+}
+.ui-table-scrollable-view{
+  padding-bottom: 17px;
+}
+// page
+body .ui-paginator {
+  background-color: #FFFFFF;
+}
+.ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+  background: #FFFFFF !important;
+  color: #237BD3 !important;
+  border: solid 1px;
+}
+.ui-paginator .ui-paginator-pages .ui-paginator-page {
+  border-radius: 8px !important;
+  background-color: #FFFFFF !important;
+  color: #848484 !important;
+}
+body .ui-paginator .ui-dropdown .ui-dropdown-trigger, body .ui-paginator .ui-dropdown .ui-dropdown-label {
+  padding: 5px;
+  height: 30px !important;
+}
+body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+  border: solid 1px;
+}
+body .ui-paginator .ui-paginator-first, body .ui-paginator .ui-paginator-prev, body .ui-paginator .ui-paginator-next, body .ui-paginator .ui-paginator-last {
+  border-radius: 8px !important;
+  border: solid 1px;
+  vertical-align: top !important;
+  margin: 2px;
+}
+//table treview
+body .ui-treetable .ui-treetable-thead > tr > th {
+    color: #0A4874;
+    background-color: #F7FAFB;
+    font-size: 14px;
+    padding: 13px 0px 13px 16px;
+    font-family: 'Exo2-Regualar' !important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+}
+body .ui-treetable .ui-treetable-tbody > tr > td {
+  font-size: 14px;
+  // padding: 13px 0px 13px 16px;
+  font-weight: normal;
+}
+
+.main-footer {
+    border: none !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 40px;
+    font-family: 'Exo2-Regualar' !important;
+    z-index: 900 !important;
+}
+
+.main-header {
+  border: none !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 30px;
+  font-family: 'SF Pro Display' !important;
+  position: relative !important;
+  z-index: 900 !important;
+}
+
+.trang-thai-canh-bao {
+  border-radius: 0.42rem;
+    padding: 0.25em 0.5em;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  &.status-ACTIVE_ACK {
+      background-color: rgba(35, 123, 211, 0.05);;
+      color: #237BD3;
+  }
+
+  &.status-CLEARED_UNACK {
+      background-color: rgba(83, 89, 95, 0.05);
+      color: #53595F ;
+  }
+
+  &.status-CLEARED_ACK {
+      background-color: rgba(57, 191, 159, 0.05);
+      color: #39BF9F;
+  }
+
+  &.status-ACTIVE_UNACK {
+    background-color: rgba(217, 31, 44, 0.05);
+    color: #D91F2C;
+  }
+  }
+// .main-footer:before {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   border-top: 80px solid white;
+//   border-right: 80px solid yellow;
+//   width: 0;
+// }
+
+// Button Map
+
+// .esri-popup__button:hover {
+//   color: #2e2e2e;
+//   background: linear-gradient(
+// 46.62deg
+// , #D91F2C 0%, #EC7981 93.64%);
+//   border-radius: 50%;
+// }
+
+// .esri-popup__button {
+//   color: #2e2e2e;
+//   background: linear-gradient(
+// 46.62deg
+// , #D91F2C 0%, #EC7981 93.64%);
+//   border-radius: 50% !important;
+// }
+
+
+// Menu
+
+.bg-dark {
+  background: none !important;
+}
+a.bg-dark {
+  background: white !important;
+}
+a.bg-dark:hover {
+  background: none !important;
+}
+a.bg-dark:focus {
+  background: none !important;
+}
+
+body .ui-megamenu .ui-megamenu-submenu-header {
+  background: linear-gradient(84.18deg, #237BD3 -27.46%, #7CB3E9 100.66%) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+  background-color: #fff;
+  color: #237BD3 !important;
+  font-weight: bold !important;
+}
+
+.ui-state-active{
+  background: white !important;
+}
+
+.sidebar-mini .main-sidebar .nav-flat .nav-link, .sidebar-mini-md .main-sidebar .nav-flat .nav-link, .sidebar-mini-xs .main-sidebar .nav-flat .nav-link {
+  color: white;
+}
+
+.ui-megamenu-vertical .ui-megamenu-root-list>.ui-menuitem>.ui-menuitem-link>.ui-submenu-icon {
+color: #ffffff;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  border-radius: 30px;
+  background-color: #7CB3E9 !important;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+  border-radius: 30px;
+}
+
+.nav-pills .nav-link {
+  border-radius: 30px !important;
+  // border: 1px solid rgba(0, 0, 0, 0.2);
+
+  border: none !important;
+}
+
+.nav-sidebar>.nav-item {
+  line-height: 35px;
+}
+
+body .ui-datepicker table td > a.ui-state-active, body .ui-datepicker table td > span.ui-state-active {
+  color: #ffffff;
+  background-color: #7CB3E9 !important;
+}
+
+.ui-chkbox .ui-chkbox-icon {
+  display: block;
+  background: #7CB3E9;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background: white !important;
+}
+
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group.ui-state-highlight {
+  color: #ffffff;
+  background-color: #7CB3E9 !important;
+}
+
+body .ui-inputtext:enabled:hover:not(.ui-state-error) {
+  border-color: none !important;
+}
+body .ui-inputtext{
+  font-size: 14px !important;
+  background-color: transparent !important;
+}
+
+.esri-view-width-medium .esri-popup__main-container {
+  border-radius: 30px;
+}
+
+.esri-view-width-less-than-medium .esri-popup__main-container {
+  border-radius: 30px;
+}
+
+.esri-view-width-large .esri-popup__main-container {
+  border-radius: 30px;
+}
+
+.swal2-header {
+//  background: linear-gradient(46.62deg, #D91F2C 0%, #EC7981 93.64%);
+  border-radius: 30px 30px 0px 0px;
+}
+.swal2-popup{
+  padding: 0px;
+  border-radius: 30px;
+}
+.swal2-close {
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+}
+.swal2-close:hover {
+  background: white;
+}
+
+.swal2-styled.swal2-confirm {
+    border: 1px solid #D3e5f8 !important;
+    margin-bottom: 8px;
+}
+.swal2-styled.swal2-cancel {
+  border: 1px solid #D3e5f8 !important;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+.swal2-actions {
+  flex-wrap: nowrap;
+}
+.swal2-styled {
+  margin: 0px;
+}
+.swal2-styled:focus {
+  box-shadow:  none !important;
+}
+.swal2-styled:focus-visible {
+  box-shadow:  #53595F !important;
+}
+.icon1 {
+  content: "\26A0";
+  color: white;
+  font-size: 80px;
+}
+.swal2-icon.swal2-warning {
+  border-color: transparent !important;
+}
+
+
+body .ui-datepicker table td {
+  padding: 0;
+}
+
+body .ui-datepicker {
+  padding-bottom: 0;
+}
+body .ui-datepicker table{
+  margin: 0;
+}
+.ui-datepicker td>span, .ui-datepicker td>a{
+  padding: .2em !important;
+}
+ .text-dropdown-hidden .ui-dropdown-label-container{
+  overflow: hidden !important;
+}
+
+.text-dropdown-dots .ui-dropdown-label-container > span{
+  text-overflow: ellipsis !important;
+}
+body .ui-datepicker .ui-timepicker {
+  padding: 0px !important;
+}
+
+.btn {
+  font-size: 14px !important;
+}
+.dropdown-menu {
+  font-size: 14px;
+}
+.text-nowrap {
+  padding: 13px;
+  font-size: 14px !important;
+  color: #53595F !important;
+  line-height: 22px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'SF Pro Display' !important;
+}
+.bi {
+  margin-right: 11px !important;
+}
+.p-lg-4 {
+     padding: 0px 8px !important; 
+}
+.p-lg-6 {
+  padding: 0px 8px !important;
+}
+.m-l-8{
+  margin-left: 8px !important;
+}
+.p-lg-12 {
+  padding: 0px 8px !important; 
+}
+.p-md-12{
+  padding: 0px 8px !important;
+}
+.col-md-12{
+  padding: 0px 8px !important;
+}
+.col-md-6
+{
+  padding: 0px 8px !important;
+}
+.col-md-5
+{
+  padding: 0px 8px !important;
+}
+.form-group {
+  margin-bottom: 24px;
+}
+body .ui-paginator .ui-dropdown {
+  margin-top: 2px;
+}
+.title-chi-tiet-tram{
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  color: #0A4874;
+}
+.col-6{
+  padding: 0px !important;
+}
+
+.chartjs-render-monitor {
+  padding: 24px;
+}
+body .ui-accordion .ui-accordion-header 
+{
+  margin-bottom: 0px !important;
+}
+body .ui-accordion .ui-accordion-content {
+  border: 1px solid rgba(83, 89, 95, 0.2) !important;
+  border-radius: 0px 0px 8px 8px;
+  padding: 12px 0px 17px 0px !important;
+}
+.fa-search:before {
+  content: "\f002";
+  font-size: 21px !important;
+  line-height: 23px;
+  color: #237BD3;
+}
+.style-header-input-baocao{
+  margin: 24px 19px 0px 19px !important;
+}
+.style-header-btn-baocao{
+  padding: 0px 0px 0px 11px !important;
+  margin-top: 31px !important;
+}
+.style-btn-tim-kiem-bao-cao{
+  min-width: 52px;
+  min-height: 47px;
+  color: #237BD3;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid rgba(83, 89, 95, 0.2);
+}
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group {
+  padding: 13px !important;
+  font-size: 14px !important;
+  color: #53595F !important;
+  line-height: 22px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "SF Pro Display" !important;
+}
+.ui-table-scrollable-view {
+  padding-bottom: 25px !important;
+}
+.style-text-bao-cao-chi-tiet-canh-bao{
+font-family: "SF Pro Display" !important;
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 22px;
+color: #0A4874;
+}
+
+body .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+body .ui-fluid .ui-calendar.ui-calendar-w-btn input.ui-inputtext {
+  border-radius: 8px 0 0 8px !important;
+}
+body .ui-panel .ui-panel-content{
+  border-radius: 0px 0px 8px 8px !important;
+}
+body .ui-panel .ui-panel-titlebar 
+{
+  border-radius: 8px 8px 0px 0px !important;
+}
+body .ui-picklist .ui-picklist-caption 
+{
+  font-family: "SF Pro Display" !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #53595F;
+}
+.swal2-success-circular-line-left{
+  background-color: transparent !important;
+}
+.swal2-success-circular-line-right{
+  background-color: transparent !important;
+}
+.swal2-success-fix{
+  background-color: transparent !important;
+}
+.title-popup-xoa
+{
+    font-family: "SF Pro Display" !important ;
+    color: #D91F2C; 
+    font-style: normal;
+    font-weight: 600; 
+    font-size: 24px;
+    line-height: 32px;
+}
+.text-popup-xoa{
+    font-family: "SF Pro Display" !important ;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #53595F;
+}
+body .ui-picklist .ui-picklist-list .ui-picklist-item 
+{
+  font-family:"SF Pro Display" !important ;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #53595F;
+}
+.ui-table-scrollable-header-box{
+  background-color: #F7FAFB !important;
+}
+.ui-treetable-scrollable-header{
+  background-color: #F7FAFB !important;
+}
+
+.btn-scroll {
+position: fixed;
+bottom: 60px;
+right: 60px;
+transition: all 1s;
+z-index: 1000;
+}
+
+.style-btn-scroll {
+  min-width: 52px;
+  min-height: 47px;
+  color: #000000;
+  border-radius: 8px;
+  background-color: #5ab5ea78;
+  border: 1px solid rgba(80, 150, 221, 0.2);
+}
+
+.btn-expand {
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+pre {
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  font-family: 'SF Pro Display';
+  font-size: 14px;
+}    
+
+body .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+  border-color: #0089d9;
+  background-color: #17d900 !important;
+  color: #ffffff;
+}

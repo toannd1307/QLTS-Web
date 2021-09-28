@@ -1,0 +1,105 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal w-auto" autocomplete="off">
+    <abp-modal-header [title]="'Xem chi tiết khai báo'" (onCloseClick)="bsModalRef.hide()">
+    </abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [control]="form.get('nguoiKhaiBao')" [title]="'Người khai báo '">
+                    </dft-label-validation>
+                    <input disabled [formControl]="form.get('nguoiKhaiBao')" required type="text" id="nguoiKhaiBao" name="nguoiKhaiBao" maxlength="50" formControlName='nguoiKhaiBao' pInputText />
+                    <dft-validation [control]="form.get('nguoiKhaiBao')"></dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ngayKhaiBao')" [title]="'Thời gian khai báo '">
+                    </dft-label-validation>
+                    <p-calendar [disabled]="true" formControlName="ngayKhaiBao" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                    </p-calendar>
+                    <dft-validation [control]="form.get('ngayKhaiBao')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('noiDungKhaiBao')" [title]="'Nội dung khai báo'">
+                    </dft-label-validation>
+                    <textarea disabled formControlName="noiDungKhaiBao" class="form-control" id="noiDungKhaiBao" rows="4" maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('noiDungKhaiBao')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+        <dft-label-validation [title]="'Danh sách tài sản khai báo mất'"></dft-label-validation>
+        <div>
+            <p-table #dt [value]="records" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-75">STT</th>
+                        <th class="width-150" pSortableColumn="tenTaiSan">Tên tài sản
+                            <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="loaiTaiSan">Loại tài sản
+                            <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="serialNumber">Serial Number
+                            <p-sortIcon field="serialNumber"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="nhaCungCap">Nhà cung cấp
+                            <p-sortIcon field="nhaCungCap"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="ngayMua">Ngày mua
+                            <p-sortIcon field="ngayMua"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="nguyenGia">Nguyên giá
+                            <p-sortIcon field="nguyenGia"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="phongBanQuanLy">Đơn vị quản lý
+                            <p-sortIcon field="phongBanQuanLy"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                    <tr class="ui-selectable-row">
+                        <td class="width-75">
+                            {{ rowIndex+1 | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.tenTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.loaiTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.serialNumber | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.nhaCungCap | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.creationTime| truncate | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td class="width-150">
+                            {{ record.nguyenGia| truncate | number: '2.'}}
+                        </td>
+                        <td class="width-150">
+                            {{ record.phongBanQuanLy | truncate }}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <!-- <abp-modal-footer *ngIf="!isView" [cancelDisabled]="saving" (onCancelClick)="close()"
+        [saveDisabled]="!this.records?.length">
+    </abp-modal-footer> -->
+</form>

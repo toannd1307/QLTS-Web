@@ -1,0 +1,23 @@
+<li class="nav-item dropdown nav-user-menu " dropdown>
+    <div class="row" style="float: right;">
+        <a href="https://tiny.app.link/e7BWFW837hb" class="nav-link">
+            <img style="height: 2.6rem;margin-top: -10px;width: 110px;" src="assets/img/ios.png" alt="">
+        </a>
+        <a (click)="androidAppDownload()" href="javascript:;" class="nav-link">
+            <img style="height: 2.6rem;margin-top: -10px;width: 110px;" src="assets/img/android.png" alt="">
+        </a>
+
+        <app-header-notifications></app-header-notifications>
+        <a href="javascript:;" class="nav-link m-l-5" dropdownToggle>
+            <img class="user-image img-circle" style="border-radius: 0 !important; margin-top: -8px; height: 40px; width: 40px;" src="assets/img/avatar.png" alt="User Image" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+            <a class="dropdown-item" [routerLink]="['update-password']">
+                <i class="fas fa-user-edit"></i> Đổi mật khẩu
+            </a>
+            <a class="dropdown-item" href="javascript:;" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
+        </div>
+    </div>
+</li>

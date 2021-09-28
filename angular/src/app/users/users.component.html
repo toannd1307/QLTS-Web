@@ -1,0 +1,135 @@
+<div [@routerTransition]>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Quản lý Người dùng</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-primary m-r-5" (click)="createUser()">
+                        <i class="fa fa-plus"></i>
+                        <span style="margin-left: 5px;">Thêm mới</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword"
+                            [placeholder]="'Nhập tên đăng nhập, họ tên người dùng, email, số điện thoại' | localize"
+                            [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="row ui-fluid m-t-10">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <dft-label-validation [title]="'Đơn vị'">
+                                    </dft-label-validation>
+                                    <app-multiple-select-tree [dataEdit]="toChucTrees"
+                                        (onSelect)="toChucValue = $event">
+                                    </app-multiple-select-tree>
+                                    <dft-validation></dft-validation>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <p-table #dt [value]="users" [lazy]="true" [(first)]="first"
+                        (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading"
+                        [showCurrentPageReport]="showCurrentPageReport"
+                        currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30"></th>
+                                <th class="width-150" pSortableColumn="userName">Tên đăng nhập
+                                    <p-sortIcon field="userName"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="name">Họ tên
+                                    <p-sortIcon field="name"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="emailAddress">Địa chỉ Email
+                                    <p-sortIcon field="emailAddress"></p-sortIcon>
+                                </th>
+                                <th class="width-100" pSortableColumn="phoneNumber">SĐT
+                                    <p-sortIcon field="phoneNumber"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="toChucId">Đơn vị
+                                    <p-sortIcon field="toChucId"></p-sortIcon>
+                                </th>
+                                <th class="width-100" pSortableColumn="chucVu">Chức vụ
+                                    <p-sortIcon field="chucVu"></p-sortIcon>
+                                </th>
+                                <th class="width-100" pSortableColumn="isActive">Kích hoạt
+                                    <p-sortIcon field="isActive"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="viewUser(record,true)">Xem</a>
+                                            <a class="dropdown-item" (click)="editUser(record)">Cập
+                                                nhật</a>
+                                            <a class="dropdown-item" (click)="resetPassword(record)">Khôi phục mật
+                                                khẩu</a>
+                                            <a class="dropdown-item" (click)="updateRole(record)">Phân quyền</a>
+                                            <a class="dropdown-item" (click)="delete(record)">Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.userName | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.name | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.emailAddress | truncate }}
+                                </td>
+                                <td class="width-100">
+                                    {{ record.phoneNumber | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ getToChuc(record.toChucId) | truncate }}
+                                </td>
+                                <td class="width-100">
+                                    {{ record.chucVu | truncate }}
+                                </td>
+                                <td class="width-100">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" disabled
+                                            [checked]="record.isActive" />
+                                        <label class="custom-control-label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

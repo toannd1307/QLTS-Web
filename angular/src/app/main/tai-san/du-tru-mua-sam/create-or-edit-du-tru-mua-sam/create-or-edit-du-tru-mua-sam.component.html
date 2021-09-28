@@ -1,0 +1,213 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm"
+    (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: Phiếu dự trù mua sắm': 'Cập nhật: Phiếu dự trù mua sắm') : 'Thêm mới: Phiếu dự trù mua sắm'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('maPhieu')" [title]="'Mã phiếu *'">
+                    </dft-label-validation>
+                    <input type="text" id="maPhieu" name="maPhieu" formControlName='maPhieu' maxlength="50"
+                        pInputText />
+                    <dft-validation [control]="form.get('maPhieu')">
+                    </dft-validation>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenPhieu')" [title]="'Tên phiếu *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenPhieu" name="tenPhieu" formControlName='tenPhieu' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('tenPhieu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('phongBan')" [title]="'Đơn vị *'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [disabled]="isView" [items]="toChucItems" [(value)]="demoDto.toChucId"
+                        (valueChange)="setControlValue($event)">
+                    </app-dropdown-treeview-select>
+                    <dft-validation [control]="form.get('phongBan')"></dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Người lập phiếu *'">
+                    </dft-label-validation>
+                    <input disabled type="text" id="nguoiLapPhieu" name="nguoiLapPhieu" formControlName='nguoiLapPhieu'
+                        pInputText maxlength="255" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 m-t-15"><b style="font-size: 20px;">Danh sách tài sản đề
+                xuất mua sắm</b></div>
+            <div *ngIf="!isView" class="col-lg-6 col-md-6 col-xs-12 text-right">
+                <button type="button" class="btn btn-danger  m-r-5 m-t-5" [disabled]="selectedList.length === 0"
+                    (click)="xoaList(selectedList)"><i class="fas fa-trash"></i>
+                    <span style="margin-left: 5px;">Xóa</span></button>
+                &nbsp;
+                <button type="button" class="btn btn-primary m-r-5 m-t-5" (click)="create()">
+                    <i class="fa fa-plus"></i>
+                    <span style="margin-left: 5px;">Thêm mới</span></button>
+
+            </div>
+        </div>
+        &nbsp;
+        <div>
+            <p-table #dt [value]="records" [lazy]="true" [totalRecords]="totalCount" [scrollable]="scrollable"
+                scrollHeight="{{scrollHeight}}" [(selection)]="selectedList">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngIf="!isView" class="width-30">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th class="width-60">
+                            STT
+                        </th>
+                        <th class="width-150">
+                            Tên tài sản
+                        </th>
+                        <!-- <th class="width-150">
+                            Model
+                        </th> -->
+                        <th class="width-200">
+                            Hãng sản xuất
+                        </th>
+                        <th class="width-200">
+                            Nhà cung cấp
+                        </th>
+                        <th class="width-120">
+                            Số lượng
+                        </th>
+                        <th class="width-170">
+                            Đơn giá
+                        </th>
+                        <th class="width-170">
+                            Tổng giá
+                        </th>
+                        <th class="width-250">
+                            Mục đích sử dụng
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                    <tr class="ui-selectable-row">
+                        <td *ngIf="!isView" class="width-30">
+                            <p-tableCheckbox [value]="record">
+                            </p-tableCheckbox>
+                        </td>
+                        <td class="width-60">
+                            {{i+1}}
+                        </td>
+                        <td class="width-150">
+                            {{ record.tenTaiSan | truncate }}
+                        </td>
+                        <!-- <td class="width-150">
+                            {{ record.proDuctName | truncate }}
+                        </td> -->
+                        <td class="width-200">
+                            {{ record.hangSanXuat | truncate }}
+                        </td>
+                        <td class="width-200">
+                            {{ record.nhaCungCap | truncate }}
+                        </td>
+                        <td class="width-120">
+                            {{ record.soLuong | truncate }}
+                        </td>
+                        <td class="width-170">
+                            {{ record.donGia | number }}
+                        </td>
+                        <td class="width-170">
+                            {{ (record.donGia * record.soLuong) | number}}
+                        </td>
+                        <td class="width-250">
+                            {{ record.ghiChu | truncate : 100 }}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div *ngIf="!isView" style="text-align: right; margin-right: 19px;">
+            <button type="button" class="btn btn-danger m-b-11" [disabled]="filesAllImg.length === 0"
+                (click)="xoaListHA()"><i class="fas fa-trash"></i>
+                <span style="margin-left: 5px;">Xóa tất cả</span></button>
+        </div>
+
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Hình ảnh'">
+                    </dft-label-validation>
+                    <ngx-dropzone *ngIf="!isView" [accept]="imateAcceptTypes" [disabled]="uploading" (change)="onSelectAllHA($event)"
+                        [multiple]="true">
+                        <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesAllImg"
+                            [file]="f" [removable]="!isView" (removed)="onRemoveAllHA(f)">
+                            <ngx-dropzone-label title="{{f.name}}">{{ f.name |truncate:12}}
+                            </ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div *ngIf="isView" class="col-md-12">
+                <ul class="list-unstyled">
+                    <li *ngFor="let file of listFileAnh">
+                        <a [title]="file.tenFile" (click)="onDownloadFile(file.linkFile)"
+                            class="text-primary">{{file.tenFile |truncate:30}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div *ngIf="!isView" style="text-align: right; margin-right: 19px;">
+            <button type="button" class="btn btn-danger m-b-11" [disabled]="filesAllFile.length === 0"
+                (click)="xoaListFile()"><i class="fas fa-trash"></i>
+                <span style="margin-left: 5px;">Xóa tất cả</span></button>
+        </div>
+
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Tài liệu đính kèm'">
+                    </dft-label-validation>
+                    <ngx-dropzone *ngIf="!isView" [disabled]="uploading || isView" (change)="onSelectAllFile($event)" [multiple]="true"
+                        accept=".doc,.docx,application/pdf, application/vnd.ms-excel,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                    .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of filesAllFile" [removable]="!isView"
+                            (removed)="onRemoveAllFile(f)">
+                            <ngx-dropzone-label>{{ f.name |truncate:12}}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div *ngIf="isView" class="col-md-12">
+                <ul class="list-unstyled">
+                    <li *ngFor="let file of listFileWord">
+                        <a (click)="onDownloadFile(file.linkFile)" class="text-primary">{{file.tenFile
+                            |truncate:30}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <abp-modal-footer [cancelDisabled]="saving" [saveHidden]="isView" [saveHidden]="isView"
+        [cancelLabel]="isView?'Đóng':'Hủy'" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

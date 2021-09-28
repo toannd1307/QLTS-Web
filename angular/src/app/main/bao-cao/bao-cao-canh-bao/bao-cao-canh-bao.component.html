@@ -1,0 +1,98 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8">
+                    <h1>Báo cáo Cảnh báo</h1>
+                </div>
+                <div class="col-4 text-right">
+                    <button type="button" class="btn btn-success" (click)="exportToExcel()">
+                <i class="fa fa-download"></i>
+              <span style="margin-left: 5px">Xuất Excel</span>
+            </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="ui-fluid row m-t-10">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label for="PhongBan" id="PhongBan">Đơn vị quản lý</label>
+                                <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                </app-multiple-select-tree>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Time" id="Time">Thời gian</label>
+                                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" name="rangeDates">
+                                </p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn btn-primary" (click)="getDataPage(true)"><i class="fa fa-search"></i>
+                            <span style="margin-left: 5px">Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <h4 class="text-center">Tổng quan tình trạng cảnh báo</h4>
+                    <div class="row" style="overflow: auto;">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="min-width: 493px;">
+                            <p-chart (onLazyLoad)="getDataPage($event)" type="bar" [options]="barOptions1" [height]="400" [data]="data"></p-chart>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <h4>Thông tin chi tiết</h4>
+                    <div>
+                        <p-table #dt [value]="records" [loading]="loading" scrollHeight="{{scrollHeight}}"  [scrollable]="true" [lazy]="true" (onLazyLoad)="getDataPage(false)">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th class="width-180">Thời gian</th>
+                                    <th class="width-200">Tài sản ra</th>
+                                    <th class="width-200">Tài sản vào</th>
+                                    <th class="width-250">Bắt đầu kiểm kê</th>
+                                    <th class="width-250">Kết thúc kiểm kê</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                                <tr class="ui-selectable-row" [ngStyle]="{'font-weight': record.isCheck ? 'bold' : 'normal'}">
+                                    <td class="width-180">
+                                        {{ record.toTal != undefined ? record.toTal : "Ngày " + (record.ngayKhaiBao | date: 'dd/MM/yyyy')}}
+                                    </td>
+                                    <td class="width-150">
+                                        {{ record.taiSanRa}}
+                                    </td>
+                                    <td class="width-150">
+                                        {{ record.taiSanVao}}
+                                    </td>
+                                    <td class="width-150">
+                                        {{ record.batDauKiemKe}}
+                                    </td>
+                                    <td class="width-150">
+                                        {{ record.ketThucKiemKe}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td class="demo" colspan="12" class="text-left">{{khongCoDuLieu}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

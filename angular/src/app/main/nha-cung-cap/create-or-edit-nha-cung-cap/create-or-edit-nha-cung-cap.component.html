@@ -1,0 +1,116 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + createInputDto.tenNhaCungCap : 'Cập nhật: ' + createInputDto.tenNhaCungCap) : 'Thêm mới Nhà cung cấp'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('maNhaCungCap')" [title]="'Mã nhà cung cấp *'">
+                    </dft-label-validation>
+                    <input type="text" id="maNhaCungCap" name="maNhaCungCap" formControlName='maNhaCungCap'
+                        maxlength="50" pInputText />
+                    <dft-validation [control]="form.get('maNhaCungCap')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenNhaCungCap')" [title]="'Tên nhà cung cấp *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenNhaCungCap" name="tenNhaCungCap" formControlName='tenNhaCungCap'
+                        maxlength="255" pInputText />
+                    <dft-validation [control]="form.get('tenNhaCungCap')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Lĩnh vực kinh doanh'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="linhVuc" [options]="listLinhVuc" placeholder="Chọn"
+                        optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Mã số thuế'">
+                    </dft-label-validation>
+                    <input type="text" id="maSoThue" name="maSoThue" formControlName='maSoThue' maxlength="15"
+                        pInputText />
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('diaChi')" [title]="'Địa chỉ'">
+                    </dft-label-validation>
+                    <input type="text" id="diaChi" name="diaChi" formControlName='diaChi' pInputText maxlength="4000" />
+                    <dft-validation [control]="form.get('diaChi')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('soDienThoai')" [title]="'Số điện thoại'">
+                    </dft-label-validation>
+                    <input appPhoneNumber type="text" id="soDienThoai" name="soDienThoai" formControlName='soDienThoai'
+                        minlength="3" maxlength="15" pInputText />
+                    <dft-validation [control]="form.get('soDienThoai')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('email')" [title]="'Email'">
+                    </dft-label-validation>
+                    <input type="text" id="email" name="email" formControlName='email' maxlength="50" pInputText />
+                    <dft-validation [control]="form.get('email')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')" [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control" id="ghiChu" rows="5"
+                        maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Tài liệu đính kèm'">
+                    </dft-label-validation>
+                    <ngx-dropzone [disabled]="uploading || isView" (change)="onSelectAllFile($event)" [multiple]="true"
+                        accept=".doc,.docx,application/pdf, application/vnd.ms-excel,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                    .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of filesAllFile" [removable]="!isView"
+                            (removed)="onRemoveAllFile(f)">
+                            <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="list-unstyled">
+                    <li *ngFor="let file of createInputDto?.listFile">
+                        <a (click)="onDownloadFile(file.linkFile)" class="text-primary">{{file.tenFile}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'" [cancelDisabled]="saving" (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

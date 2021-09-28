@@ -1,0 +1,130 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal"
+    autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem cài đặt: ' + getForView.tenBaoCao : 'Cập nhật: ' + getForView.tenBaoCao) : 'Thêm mới cài đặt'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenBaoCao')"
+                        [title]="'Tên báo cáo *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="tenBaoCao"
+                        [options]="listBaoCao" placeholder="Chọn"
+                        optionLabel="displayName" [showClear]="true"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('tenBaoCao')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('lapLai')"
+                        [title]="'Lặp lại *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="lapLai" [options]="listLapLai"
+                        placeholder="Chọn" optionLabel="displayName"
+                        [showClear]="true" [filter]="true"
+                        resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('lapLai')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('gioGuiBC')"
+                        [title]="'Giờ gửi báo cáo *'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="gioGuiBC" [timeOnly]="true"
+                        [showIcon]="true">
+                    </p-calendar>
+                    <dft-validation [control]="form.get('gioGuiBC')">
+                    </dft-validation>
+                    <!-- {{form.controls.gioGuiBC.value}} -->
+                </div>
+            </div>
+            <div *ngIf="check === 1 || check === 2" class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ngayGuiBC')"
+                        [title]="'Ngày gửi báo cáo *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="ngayGuiBC"
+                        [options]="listThang" placeholder="Chọn"
+                        optionLabel="displayName" [showClear]="true"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('ngayGuiBC')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div *ngIf="check === 4" class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form.get('ngayGuiBC')"
+                        [title]="'Ngày gửi báo cáo *'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayGuiBC" dateFormat="dd/mm"
+                        [showIcon]="true" [monthNavigator]="true">
+                    </p-calendar>
+                    <dft-validation [control]="form.get('ngayGuiBC')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('phongBanNhanBC')"
+                        [title]="'Phòng ban nhận báo cáo *'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [disabled]="isView"
+                        [items]="toChucItems" [value]="phongBanValueId"
+                        (valueChange)="setControlValue($event)">
+                    </app-dropdown-treeview-select>
+                    <dft-validation [control]="form.get('phongBanNhanBC')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('nguoiNhanBC')"
+                        [title]="'Người nhận báo cáo *'">
+                    </dft-label-validation>
+                    <p-multiSelect [defaultLabel]="'Chọn'"
+                        [options]="listUsers" optionLabel="displayName"
+                        formControlName="nguoiNhanBC">
+                    </p-multiSelect>
+                    <dft-validation [control]="form.get('nguoiNhanBC')">
+                    </dft-validation>
+                </div>
+            </div>
+            <!-- <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Người nhận báo cáo *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="nguoiNhanBC" [options]="listUsers" placeholder="Chọn"
+                        optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('nguoiNhanBC')">
+                    </dft-validation>
+                </div>
+            </div> -->
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')"
+                        [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control"
+                        id="ghiChu" rows="5" maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'"
+        [cancelDisabled]="saving" (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

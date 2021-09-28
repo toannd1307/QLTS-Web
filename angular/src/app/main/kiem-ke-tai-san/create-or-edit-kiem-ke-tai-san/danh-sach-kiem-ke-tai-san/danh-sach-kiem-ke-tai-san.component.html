@@ -1,0 +1,225 @@
+<div *ngIf="isFound" status="0">
+    <div class="card-header">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+          <i class="fas fa-search"></i>
+        </button>
+            </div>
+            <input type="text" class="form-control" name="keyword" [placeholder]="
+          'Tìm theo mã, tên tài sản, loại tài sản, vị trí và trạng thái của tài sản.'
+        " [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+        </div>
+    </div>
+    <div>
+        <p-table #dt [value]="foundRecords" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [loading]="loading" [rows]="paginatorRows" [scrollable]="scrollable" scrollHeight="{{ scrollHeight }}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="width-70">
+                        STT
+                    </th>
+                    <th class="width-150" pSortableColumn="maTaiSan">
+                        Mã tài sản
+                        <p-sortIcon field="maTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="tenTaiSan">
+                        Tên tài sản
+                        <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="loaiTaiSan">
+                        Loại tài sản
+                        <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-200" pSortableColumn="viTri">
+                        Vị trí
+                        <p-sortIcon field="viTri"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="trangThaiId">
+                        Trạng thái tài sản
+                        <p-sortIcon field="trangThaiId"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                <tr class="ui-selectable-row">
+                    <td class="width-70">
+                        {{ rowIndex+1 }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.maTaiSan }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.tenTaiSan }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.loaiTaiSan }}
+                    </td>
+                    <td class="width-200">
+                        {{ record.viTri }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.trangThai }}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="demo" colspan="8" class="text-left">
+                        {{ khongCoDuLieu }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div *ngIf="isNotFound" status="1">
+    <div class="card-header">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+          <i class="fas fa-search"></i>
+        </button>
+            </div>
+            <input type="text" class="form-control" name="keyword" [placeholder]="
+          'Tìm theo mã, tên tài sản, loại tài sản, vị trí và trạng thái của tài sản.'
+        " [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+        </div>
+    </div>
+    <div class="card-header text-right" *ngIf="!isDisable">
+        <button type="button" class="btn bg-blue" [disabled]="isFounded()" (click)="founded()">
+      <i class="fas fa-clipboard-check"></i> Đã tìm thấy
+    </button>
+    </div>
+    <div>
+        <p-table #dt [value]="notFoundRecords" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [loading]="loading" [rows]="paginatorRows" [(selection)]="selectedRows" [scrollable]="scrollable" scrollHeight="{{ scrollHeight }}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="width-30">
+                    </th>
+                    <th class="width-70">
+                        STT
+                    </th>
+                    <th class="width-150" pSortableColumn="maTaiSan">
+                        Mã tài sản
+                        <p-sortIcon field="maTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="tenTaiSan">
+                        Tên tài sản
+                        <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="loaiTaiSan">
+                        Loại tài sản
+                        <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-200" pSortableColumn="viTri">
+                        Vị trí
+                        <p-sortIcon field="viTri"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="trangThaiId">
+                        Trạng thái tài sản
+                        <p-sortIcon field="trangThaiId"></p-sortIcon>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                <tr class="ui-selectable-row">
+                    <td class="width-30">
+                        <p-tableCheckbox [value]="record" *ngIf="!isDisable"></p-tableCheckbox>
+                    </td>
+                    <td class="width-70">
+                        {{ rowIndex+1 }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.maTaiSan }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.tenTaiSan }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.loaiTaiSan }}
+                    </td>
+                    <td class="width-200">
+                        {{ record.viTri }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.trangThai }}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="demo text-left" colspan="8">
+                        {{ khongCoDuLieu }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div *ngIf="isNotInList" status="2">
+    <div class="card-header">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+          <i class="fas fa-search"></i>
+        </button>
+            </div>
+            <input type="text" class="form-control" name="keyword" [placeholder]="
+          'Tìm theo mã tài sản, loại tài sản, vị trí và tình trạng của tài sản.'
+        " [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+        </div>
+    </div>
+    <div>
+        <p-table #dt [value]="unknownRecords" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [loading]="loading" [rows]="paginatorRows" [scrollable]="scrollable" scrollHeight="{{ scrollHeight }}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="width-70">
+                        STT
+                    </th>
+                    <th class="width-250" pSortableColumn="maTaiSan">
+                        Mã tài sản
+                        <p-sortIcon field="maTaiSan"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="viTri">
+                        Vị trí
+                        <p-sortIcon field="viTri"></p-sortIcon>
+                    </th>
+                    <th class="width-150" pSortableColumn="tinhTrangId">
+                        Tình trạng
+                        <p-sortIcon field="tinhTrangId"></p-sortIcon>
+                    </th>
+                    <th class="width-70">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                <tr class="ui-selectable-row">
+                    <td class="width-70">
+                        {{ rowIndex+1 }}
+                    </td>
+                    <td class="width-250">
+                        {{ record.maTaiSan }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.viTri }}
+                    </td>
+                    <td class="width-150">
+                        {{ record.tinhTrang }}
+                    </td>
+                    <td class="width-70" *ngIf="!isDisable">
+                        <button type="button" class="btn btn-primary" (click)="addTaiSanLa(record.id)" *ngIf="record.tinhTrang !== 'Đã thêm vào danh sách'">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="demo" colspan="8" class="text-left">
+                        {{ khongCoDuLieu }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

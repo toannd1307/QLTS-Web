@@ -1,0 +1,128 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Giám sát tài sản</h1>
+                </div>
+                <div class="col-6 text-right">
+
+                    <button style="width: 130px !important;" type="button" class="btn btn-success m-r-5 m-t-5" [buttonBusy]="exporting" (click)="exportToExcel()"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm">
+        <section class="content px-2">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập mã RFID, tên tài sản'" formControlName="keyword" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                    <br>
+                    <div class="ui-fluid row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="Time" id="Time">Thời gian</label>
+                                <p-calendar formControlName="DateFromTo" selectionMode="range" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Đơn vị quản lý'">
+                                </dft-label-validation>
+                                <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                </app-multiple-select-tree>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Chiều di chuyển'">
+                                </dft-label-validation>
+                                <p-dropdown formControlName="chieuDiChuyen" [options]="listChieuDiChuyen" placeholder="Chọn" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                </p-dropdown>
+                                <!-- {{loaiTaiSanValue}} -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Phân loại'">
+                                </dft-label-validation>
+                                <p-dropdown formControlName="PhanLoaiFilter" [options]="listPhanLoaiTaiSan" placeholder="Chọn" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>
+                    <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-200" pSortableColumn="maRFID">Mã tài sản (EPC)
+                                    <p-sortIcon field="maRFID"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="tenTaiSan">Tên tài sản
+                                    <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="donViSuDung">Đơn vị quản lý
+                                    <p-sortIcon field="donViSuDung"></p-sortIcon>
+                                </th>
+                                <th class="width-130" pSortableColumn="ngayDiChuyen">Ngày di chuyển
+                                    <p-sortIcon field="ngayDiChuyen"></p-sortIcon>
+                                </th>
+                                <th class="width-70" pSortableColumn="chieuDiChuyen">Chiều di chuyển
+                                    <p-sortIcon field="chieuDiChuyen"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="loaiTaiSan">Phân loại
+                                    <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-230">
+                                    {{ record.maRFID | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.tenTaiSan | truncate }}
+                                </td>
+                                <td class="width-180">
+                                    {{ record.donViSuDung | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.ngayDiChuyen | date:'dd/MM/yyyy hh:mm:ss' }}
+                                </td>
+                                <td class="width-70">
+                                    {{ record.chieuDiChuyen | truncate }}
+                                </td>
+                                <td class="width-170">
+                                    {{ record.phanLoai | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

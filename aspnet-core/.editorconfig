@@ -1,0 +1,37 @@
+﻿[*.cs]
+
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = none
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# CA1307: Specify StringComparison
+dotnet_diagnostic.CA1307.severity = none
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = none
+
+# CA1305: Specify IFormatProvider
+dotnet_diagnostic.CA1305.severity = none
+
+# SA1615: Element return value should be documented
+dotnet_diagnostic.SA1615.severity = none
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = none
+
+# SA1123: Do not place regions within elements
+dotnet_diagnostic.SA1123.severity = none
+
+# Default severity for analyzer diagnostics with category 'Usage'
+dotnet_analyzer_diagnostic.category-Usage.severity = none
+
+# SA1124: Do not use regions
+dotnet_diagnostic.SA1124.severity = none
+
+# CA1304: Specify CultureInfo
+dotnet_diagnostic.CA1304.severity = none
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = none

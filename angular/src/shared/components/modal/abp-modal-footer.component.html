@@ -1,0 +1,8 @@
+<div class="modal-footer">
+  <button type="button" class="btn btn-cancle-background m-r-5 width-btn-footer" [disabled]="cancelDisabled"
+    [hidden]="cancelHidden" (click)="onCancelClick.emit()">{{cancelLabel}}</button>
+
+  <button type="submit" class="btn btn-primary btn-save-background width-btn-footer" [disabled]="saveDisabled"
+    [buttonBusy]="cancelDisabled" [hidden]="saveHidden"><i [class]="iconName"></i>
+    <span style="margin-left: 5px;">{{saveLabel}}</span></button>
+</div>

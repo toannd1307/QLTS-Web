@@ -1,0 +1,132 @@
+<form [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'Thêm mới Người dùng'" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <p-tabView>
+      <p-tabPanel header="Thông tin chung">
+        <div class="row ui-fluid">
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('HoTen')" [title]="'Họ tên *'">
+              </dft-label-validation>
+              <input formControlName="HoTen" type="text" class="form-control" name="HoTen" id="HoTen" maxlength="64" />
+              <dft-validation [control]="form.get('HoTen')"></dft-validation>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('PhongBan')" [title]="'Đơn vị *'">
+              </dft-label-validation>
+              <app-dropdown-treeview-select [items]="toChucItems" (valueChange)="setControlValue($event)">
+              </app-dropdown-treeview-select>
+              <dft-validation [control]="form.get('PhongBan')"></dft-validation>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('ChucVu')" [title]="'Chức vụ'">
+              </dft-label-validation>
+              <input formControlName="ChucVu" type="text" class="form-control" name="ChucVu" id="ChucVu"
+                maxlength="50" />
+              <dft-validation [control]="form.get('ChucVu')"></dft-validation>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('EmailAdress')" [title]="'Địa chỉ Email *'">
+              </dft-label-validation>
+              <input formControlName="EmailAdress" class="form-control" maxlength="256" name="abc"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$" />
+              <dft-validation [control]="form.get('EmailAdress')"></dft-validation>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('TenDangNhap')" [title]="'Tên đăng nhập *'">
+              </dft-label-validation>
+              <input formControlName="TenDangNhap" type="text" class="form-control" name="TenDangNhap" id="TenDangNhap"
+                minlength="2" maxlength="32" />
+              <dft-validation [control]="form.get('TenDangNhap')"></dft-validation>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('SoDienThoai')" [title]="'SĐT'">
+              </dft-label-validation>
+              <input formControlName="SoDienThoai" type="text" class="form-control" name="SoDienThoai" id="SoDienThoai"
+                maxlength="15" />
+              <dft-validation [control]="form.get('SoDienThoai')"></dft-validation>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('MatKhau')" [title]="'Mật khẩu *'">
+              </dft-label-validation>
+              <input formControlName="MatKhau" type="password" class="form-control" name="MatKhau" id="MatKhau"
+                minlength="6" maxlength="32" />
+              <abp-validation-summary [control]="form.get('MatKhau')">
+              </abp-validation-summary>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('XacNhanMatKhau')" [title]="'Xác nhận mật khẩu *'">
+              </dft-label-validation>
+              <input formControlName="XacNhanMatKhau" type="password" class="form-control" name="XacNhanMatKhau"
+                id="XacNhanMatKhau" minlength="6" maxlength="32" />
+              <abp-validation-summary [control]="form.get('XacNhanMatKhau')">
+              </abp-validation-summary>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-12">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('TinhTrang')" [title]="'Kích hoạt'">
+              </dft-label-validation>
+              <br>
+              <p-inputSwitch formControlName="TinhTrang" name="isActive"></p-inputSwitch>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-12">
+            <div class="form-group">
+              <dft-label-validation [form]="form" [title]="'Ghi chú'">
+              </dft-label-validation>
+              <br>
+              <textarea formControlName="GhiChu" class="form-control" id="exampleFormControlTextarea1"
+                rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Vai trò">
+        <div class="form-group row mb-0">
+          <ng-container *ngFor="let role of roles; let i = index">
+            <div class="col-md-6">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [id]="'role_' + i"
+                  [checked]="isRoleChecked(role.normalizedName)" (change)="onRoleChange(role, $event)" />
+                <label class="custom-control-label" [for]="'role_' + i">
+                  {{ role.name }}
+                </label>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

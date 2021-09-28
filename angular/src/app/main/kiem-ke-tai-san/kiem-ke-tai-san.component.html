@@ -1,0 +1,146 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Danh sách các đợt kiểm kê</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-primary" (click)="create()">
+                        <i class="fa fa-plus-square"></i>
+                        <span style="margin-left: 5px">Thêm mới</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập tên hoặc mã đợt kiểm kê'" [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                    <div class="ui-fluid row m-t-10">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="PhongBan" id="PhongBan">Đơn vị</label>
+                                <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                </app-multiple-select-tree>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="Time" id="Time">Thời gian</label>
+                                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" name="rangeDates">
+                                </p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="Condition" id="Condition">Tình trạng kiểm kê</label>
+                                <p-dropdown [options]="trangthaiKiemKe" [(ngModel)]="trangthai" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="false" [filter]="false" resetFilterOnHide="false">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-6 col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn bg-danger" [disabled]="isDeletes()" (click)="deletes()">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [value]="records" (onLazyLoad)="getDataPage(false,$event)" [lazy]="true" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{
+                        totalCount == 0 ? '' : ' Hiển thị: {first}-{last}/{totalRecords}'
+                        }} " [(selection)]="selectedRows" [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{ scrollHeight }}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th class="width-30"></th>
+                                <th class="width-150" pSortableColumn="kiemKeTaiSan.maKiemKe">
+                                    Mã kiểm kê
+                                    <p-sortIcon field="kiemKeTaiSan.maKiemKe"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="kiemKeTaiSan.tenKiemKe">
+                                    Tên
+                                    <p-sortIcon field="kiemKeTaiSan.tenKiemKe"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="kiemKeTaiSan.boPhanDuocKiemKeId">
+                                    Đơn vị
+                                    <p-sortIcon field="kiemKeTaiSan.boPhanDuocKiemKeId"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="kiemKeTaiSan.thoiGianBatDauDuKien">
+                                    Thời gian dự kiến
+                                    <p-sortIcon field="kiemKeTaiSan.thoiGianBatDauDuKien"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="kiemKeTaiSan.thoiGianBatDauThucTe">
+                                    Thời gian thực tế
+                                    <p-sortIcon field="kiemKeTaiSan.thoiGianBatDauThucTe"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="kiemKeTaiSan.trangThaiId">
+                                    Tình trạng
+                                    <p-sortIcon field="kiemKeTaiSan.trangThaiId"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                                </td>
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="view(record.kiemKeTaiSan.id,record.kiemKeTaiSan.trangThaiId)">Xem</a>
+                                            <a *ngIf="record.kiemKeTaiSan.trangThaiId === 0" class="dropdown-item" (click)="create(record.kiemKeTaiSan.id)">Cập nhật</a>
+                                            <a class="dropdown-item" *ngIf="record.kiemKeTaiSan.trangThaiId === 0" (click)="delete(record)">Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.kiemKeTaiSan.maKiemKe }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.kiemKeTaiSan.tenKiemKe }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.phongBan }}
+                                </td>
+                                <td class="width-200" style="white-space: nowrap">
+                                    {{ record.kiemKeTaiSan.thoiGianBatDauDuKien | date: dateFormatPipe }} - {{ record.kiemKeTaiSan.thoiGianKetThucDuKien | date: dateFormatPipe }}
+                                </td>
+                                <td class="width-200" style="white-space: nowrap">
+                                    {{ record.kiemKeTaiSan.thoiGianBatDauThucTe | date: dateFormatPipe }} - {{ record.kiemKeTaiSan.thoiGianKetThucThucTe | date: dateFormatPipe }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.kiemKeTaiSan.trangThaiId | statusnum }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{ khongCoDuLieu }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

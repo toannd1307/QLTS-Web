@@ -1,0 +1,96 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Demo</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-success m-r-5 m-t-5 width-130" (click)="importExcel()">
+                        <i class="fa fa-upload"></i>
+                        <span style="margin-left: 5px;">Nhập Excel</span></button>
+                    
+                        <button type="button" class="btn btn-success m-r-5 m-t-5 width-130" [buttonBusy]="exporting"
+                        (click)="exportToExcel()"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button>
+
+                    <button type="button" class="btn btn-primary m-r-5 m-t-5 width-130" (click)="createDemo()">
+                        <i class="fa fa-plus"></i>
+                        <span style="margin-left: 5px;">Thêm mới</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập từ khóa...'"
+                            [(ngModel)]="keyword" (keyup.enter)="getDataPage()" pTooltip="Nhập chữ vào đây"
+                            tooltipPosition="top" />
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [value]="demos" [lazy]="true" (onLazyLoad)="getDataPage($event)"
+                        [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport"
+                        currentPageReportTemplate="Hiển thị: {first}-{last} / {totalRecords}" [rows]="paginatorRows"
+                        [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30"></th>
+                                <th class="width-150">Mã</th>
+                                <th class="width-150">Tên</th>
+                                <th class="width-150">IntegerOnly</th>
+                                <th class="width-150">Decimal</th>
+                                <th class="width-150">Trạng thái</th>
+                                <th class="width-150">Trạng thái duyệt</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="viewDemo(record.demo.id)">Xem</a>
+                                            <a class="dropdown-item" (click)="createDemo(record.demo.id)">Cập nhật</a>
+                                            <a class="dropdown-item" (click)="_deleteDemo(record.demo)">Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">{{ record.demo.ma | truncate }}</td>
+                                <td class="width-150">{{ record.demo.ten | truncate }}</td>
+                                <td class="width-150">{{ record.demo.integerOnly | number }}</td>
+                                <td class="width-150">{{ record.demo.decimal | number }}</td>
+                                <td class="width-150">
+                                    <span
+                                        [class]="'trang-thai hieu-luc-' + record.demo.dropdownSingle">{{record.trangThai}}</span>
+                                </td>
+                                <td class="width-150">
+                                    <span
+                                        [class]="'trang-thai duyet-' + record.demo.autoCompleteSingle">{{record.trangThaiDuyet}}</span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" style="text-align:left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

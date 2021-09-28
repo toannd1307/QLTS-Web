@@ -1,0 +1,29 @@
+.dropdown {
+  width: 100%;
+  display: inline-block;
+  button {
+    width: 100%;
+    margin-right: 0.9rem;
+    text-align: left;
+    overflow: hidden;
+    padding-right: 30px;
+    text-overflow: ellipsis;
+    &::after {
+      position: absolute;
+      right: 0.6rem;
+      margin-top: 0.6rem;
+    }
+  }
+  .dropdown-menu {
+    .dropdown-container {
+      padding: 0 0.6rem;
+    }
+  }
+}
+
+.btn-dropdown{
+  padding: 0.429em;
+  color: #333333;
+  background-color: white !important;
+  border: 1px solid #a6a6a6;
+}

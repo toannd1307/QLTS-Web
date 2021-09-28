@@ -1,0 +1,8 @@
+<div>
+    <button #btn (click)="show=!show" class="tree-button btn" type="button" id="dropdownMenuButton">
+        <span class="text">{{selectedValue}}</span>
+    </button>
+    <div #treeItem [hidden]="show" class="tree-item">
+        <permission-tree #permissionTree (onSelectedChange)="onSelectedChange($event)"></permission-tree>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm"
+    (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + demoDto.tenViTri : 'Cập nhật: ' + demoDto.tenViTri) : 'Thêm mới Vị trí'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenViTri')" [title]="'Tên vị trí *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenViTri" name="tenViTri" formControlName='tenViTri' maxlength="50"
+                        pInputText />
+                    <dft-validation [control]="form.get('tenViTri')">
+                    </dft-validation>
+                </div>
+            </div>
+
+        </div>
+        <div class="ui-fluid row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form.get('tinhThanh')" [title]="'Tỉnh/Thành phố *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="tinhThanh" [options]="tt" [placeholder]="dropdownPlaceholder"
+                        optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true"
+                        (onChange)="getlistQH()">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('tinhThanh')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form.get('quanHuyen')" [title]="'Quận/Huyện *'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="quanHuyen" [options]="qhFromTT" [placeholder]="dropdownPlaceholder"
+                        optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <dft-validation [control]="form.get('quanHuyen')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('diaChi')" [title]="'Địa chỉ *'">
+                    </dft-label-validation>
+                    <input type="text" id="diaChi" name="diaChi" formControlName='diaChi' maxlength="4000" pInputText />
+                    <dft-validation [control]="form.get('diaChi')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')" [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea type="text" id="ghiChu" name="ghiChu" formControlName='ghiChu' maxlength="4000" pInputText
+                        rows="4"> </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveHidden]="isView" [saveHidden]="isView"
+        [cancelLabel]="isView?'Đóng':'Hủy'" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

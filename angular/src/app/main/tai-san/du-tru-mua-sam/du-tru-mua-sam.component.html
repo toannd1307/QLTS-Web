@@ -1,0 +1,165 @@
+<div [@routerTransition]>
+    <section class="content-header" id="toanBoTS">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Danh sách Phiếu dự trù mua sắm</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <!-- <button style="width: 130px !important;" type="button" class="btn btn-success m-r-5 m-t-5"
+                        [buttonBusy]="exporting" (click)="exportToExcel()"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button> -->
+
+                    <button style="width: 130px !important;" type="button" class="btn btn-primary m-r-5 m-t-5"
+                        (click)="create()">
+                        <i class="fa fa-plus"></i>
+                        <span style="margin-left: 5px;">Thêm mới</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <form class="form-horizontal" [formGroup]="form">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" name="keyword"
+                                [placeholder]="'Nhập tên, mã, trạng thái, ngày lập phiếu dự trù mua sắm'"
+                                formControlName="keyword" (keyup.enter)="getDataPage(true)" />
+                        </div>
+                        <div class="ui-fluid row m-t-10">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Đơn vị quản lý'">
+                                    </dft-label-validation>
+                                    <app-multiple-select-tree [dataEdit]="toChucItems"
+                                        (onSelect)="toChucValue = $event">
+                                    </app-multiple-select-tree>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-6 col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-danger" [disabled]="selectedList.length === 0"
+                                (click)="xoaList(selectedList)"><i class="fas fa-trash"></i>
+                                <span style="margin-left: 5px;">Xóa</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)"
+                        [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport"
+                        currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable" scrollHeight="{{scrollHeight}}" [(selection)]="selectedList">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th class="width-30"></th>
+                                <th class="width-150" pSortableColumn="tenPhongBan">Đơn vị
+                                    <p-sortIcon field="tenPhongBan"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="maPhieu">Mã phiếu
+                                    <p-sortIcon field="maPhieu"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="tenPhieu">Tên phiếu
+                                    <p-sortIcon field="tenPhieu"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="soLuongDeXuat">Số lượng đề xuất
+                                    <p-sortIcon field="soLuongDeXuat"></p-sortIcon>
+                                </th>
+                                <th class="width-180" pSortableColumn="chiPhiDeXuat">Chi phí đề xuất
+                                    <p-sortIcon field="chiPhiDeXuat"></p-sortIcon>
+                                </th>
+                                <th class="width-170" pSortableColumn="nguoiLap">Người lập
+                                    <p-sortIcon field="nguoiLap"></p-sortIcon>
+                                </th>
+                                <th class="width-170" pSortableColumn="ngayLapDate">Ngày lập
+                                    <p-sortIcon field="ngayLapDate"></p-sortIcon>
+                                </th>
+                                <th class="width-180" pSortableColumn="ngayCapNhatDate">Ngày cập nhật
+                                    <p-sortIcon field="ngayCapNhatDate"></p-sortIcon>
+                                </th>
+                                <th class="width-160" pSortableColumn="trangThaiId">Trạng thái
+                                    <p-sortIcon field="trangThaiId"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <p-tableCheckbox *ngIf="record.trangThaiId == 0" [value]="record">
+                                    </p-tableCheckbox>
+                                </td>
+
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="view(record.id)">Xem</a>
+                                            <a *ngIf="record.trangThaiId == 0" class="dropdown-item"
+                                                (click)="create(record.id)">Cập
+                                                nhật</a>
+                                            <a *ngIf="record.trangThaiId == 0" class="dropdown-item"
+                                                (click)="delete(record)">Xóa</a>
+                                            <a *ngIf="record.trangThaiId == 0" class="dropdown-item"
+                                                (click)="hoanThanh(record)">Hoàn thành</a>
+                                            <a *ngIf="record.trangThaiId == 0" class="dropdown-item"
+                                                (click)="huyBo(record)">Hủy bỏ</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.tenPhongBan | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.maPhieu | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.tenPhieu | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.soLuongDeXuat | truncate }}
+                                </td>
+                                <td class="width-180">
+                                    {{ record.chiPhiDeXuat | number }}
+                                </td>
+                                <td class="width-170">
+                                    {{ record.nguoiLap | truncate }}
+                                </td>
+                                <td class="width-170">
+                                    {{ record.ngayLap | truncate }}
+                                </td>
+                                <td class="width-180">
+                                    {{ record.ngayCapNhat | truncate }}
+                                </td>
+                                <td class="width-160">
+                                    {{ record.trangThai | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

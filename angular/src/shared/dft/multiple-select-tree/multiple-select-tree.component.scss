@@ -1,0 +1,31 @@
+.tree-item {
+    padding: 10px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 96%;
+    max-height: 350px;
+    overflow: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.tree-button {
+    width: 100%;
+    padding: 0.429em;
+    text-align: left;
+    background-color: white;
+    border: 1px solid #a6a6a6 !important;
+    max-height: 50px;
+}
+
+.text {
+    display: block;
+    width: 98%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

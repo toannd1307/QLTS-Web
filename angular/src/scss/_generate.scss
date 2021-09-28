@@ -1,0 +1,74 @@
+// render magrin,pading : VD  m-r-5, p-r-10
+@for $space from 0 through 500 {
+    @each $side in $sides {
+        .m-#{str-slice($side, 0, 1)}-#{$space} {
+            margin-#{$side}: #{$space}px !important;
+        }
+
+        .p-#{str-slice($side, 0, 1)}-#{$space} {
+            padding-#{$side}: #{$space}px !important;
+        }
+    }
+}
+
+// render width, height : VD  w-5, h-5
+@for $space from 0 through 500 {
+    .width-#{$space} {
+        width: #{$space}px !important;
+    }
+
+    .height-#{$space} {
+        height: #{$space}px !important;
+    }
+}
+
+.trang-thai {
+    border-radius: 20px;
+    padding: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+
+    // Khởi tạo
+    &.hieu-luc-1 {
+        background-color: #c8e6c9;
+        color: #256029;
+    }
+
+    // Hiệu lực
+    &.hieu-luc-2 {
+        background-color: #b3e5fc;
+        color: #23547b;
+    }
+
+    // Hết hiệu lực
+    &.hieu-luc-3 {
+        background-color: #ffcdd2;
+        color: #c63737;
+    }
+
+    // Khởi tạo
+    &.duyet-1 {
+        background-color: #c8e6c9;
+        color: #256029;
+    }
+
+    // Chưa duyệt
+    &.duyet-2 {
+        background-color: #fff251;
+        color: #4a4505;
+    }
+
+    // Đã duyệt
+    &.duyet-3 {
+        background-color: #b3e5fc;
+        color: #23547b;
+    }
+
+    // Không duyệt
+    &.duyet-4 {
+        background-color: #ffcdd2;
+        color: #c63737;
+    }
+}

@@ -1,0 +1,117 @@
+<form [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'Cấp phát Tài sản'" (onCloseClick)="close()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="ui-fluid row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('PhongBan')"
+                        [title]="'Đơn vị được cấp phát tài sản *'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [items]="toChucItems" (valueChange)="setControlValue($event)">
+                    </app-dropdown-treeview-select>
+                    <dft-validation [control]="form.get('PhongBan')"></dft-validation>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('thoiGianKhaiBao')" [title]="'Thời gian cấp phát *'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="thoiGianKhaiBao" [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                    </p-calendar>
+                    <dft-validation [control]="form.get('thoiGianKhaiBao')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('noiDungKhaiBao')" [title]="'Nội dung cấp phát'">
+                    </dft-label-validation>
+                    <br>
+                    <textarea formControlName="noiDungKhaiBao" class="form-control" id="noiDungKhaiBao" maxlength="4000"
+                        rows="4"></textarea>
+                    <dft-validation [control]="form.get('noiDungKhaiBao')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <dft-label-validation [form]="form" [title]="'Danh sách tài sản cấp phát'">
+                </dft-label-validation>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-danger m-b-10" [disabled]="!arrTaiSanChecked.length"
+                    (click)="deleteArrTaiSanChecked()"><i class="fas fa-trash"></i>
+                    <span class="m-l-5">Xóa</span></button>
+                <button type="button" class="btn btn-primary m-l-10 m-b-10" (click)="addTaiSan()"><i
+                        class="fas fa-plus"></i>
+                    <span class="m-l-5">Thêm tài sản</span></button>
+            </div>
+        </div>
+
+        <div>
+            <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage($event)"
+                [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" [rows]="paginatorRows"
+                [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}"
+                [(selection)]="arrTaiSanChecked">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-30">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th class="width-100">STT</th>
+                        <th class="width-150">Tên tài sản
+                        </th>
+                        <th class="width-150">Loại tài sản</th>
+                        <th class="width-150">Serial Number</th>
+                        <th class="width-150">Nhà cung cấp</th>
+                        <th class="width-150">Ngày mua</th>
+                        <th class="width-150">Nguyên giá</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                    <tr class="ui-selectable-row">
+                        <td class="width-30">
+                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                        </td>
+                        <td class="width-100">
+                            {{i + 1}}
+                        </td>
+                        <td class="width-150">
+                            {{ record.tenTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.loaiTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.serialNumber | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.nhaCungCap | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.ngayMua | truncate | date: 'dd/MM/yyyy' }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.nguyenGia | truncate | number: '2.' }}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!records?.length"
+        [iconName]="'fas fa-external-link-square-alt'" [saveLabel]="'Cấp phát'" (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

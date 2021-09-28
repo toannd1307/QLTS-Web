@@ -1,0 +1,636 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal"
+    autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + demoDto.tenTS : 'Cập nhật: ' + demoDto.tenTS) : 'Thêm mới Tài sản'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenTaiSan')"
+                        [title]="'Tên tài sản *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenTaiSan" name="tenTaiSan"
+                        formControlName='tenTaiSan' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('tenTaiSan')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Loại tài sản *'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [items]="loaiTaiSanItems"
+                        [(value)]="loaiTaiSanValue" [disabled]="isView"
+                        (valueChange)="setControlValue($event)">
+                    </app-dropdown-treeview-select>
+                    <dft-validation [control]="form.get('loaiTaiSan')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('SerialNumber')"
+                        [title]="'S/N (Serial Number)'">
+                    </dft-label-validation>
+                    <input type="text" id="SerialNumber" name="SerialNumber"
+                        formControlName='SerialNumber' pInputText
+                        maxlength="255" />
+                    <dft-validation [control]="form.get('SerialNumber')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ProductNumber')"
+                        [title]="'P/N (Product Number)'">
+                    </dft-label-validation>
+                    <input type="text" id="ProductNumber" name="ProductNumber"
+                        formControlName='ProductNumber' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('ProductNumber')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DmCaLamViec_lblMaCaLamViec"
+                        id="DmCaLamViec_lblMaCaLamViec">Nhà cung cấp</label>
+                    <!-- <p-autoComplete [suggestions]="suggestionsSingle" field="displayName" [dropdown]="true"
+                        [forceSelection]="true" formControlName="nhaCungCap" [size]="30"
+                        (completeMethod)="searchTrangThaiDuyet($event)">
+                    </p-autoComplete> -->
+                    <p-dropdown formControlName="nhaCungCap"
+                        [options]="listNhaCC"
+                        [placeholder]="dropdownPlaceholder"
+                        optionLabel="displayName" [showClear]="true"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('hangSanXuat')"
+                        [title]="'Hãng sản xuất'">
+                    </dft-label-validation>
+                    <input type="text" id="hangSanXuat" name="hangSanXuat"
+                        formControlName='hangSanXuat' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('hangSanXuat')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('nguyenGia')"
+                        [title]="'Nguyên giá (VNĐ)'">
+                    </dft-label-validation>
+                    <input number type="text" id="nguyenGia" name="nguyenGia"
+                        formControlName='nguyenGia' pInputText maxlength="50">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Ngày mua'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayMua"
+                        [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true"
+                        [yearRange]="yearRange">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Ngày hết hạn bảo hành'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayHetHanBH"
+                        [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true"
+                        [yearRange]="yearRange">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Ngày hết hạn sử dụng'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayHetHanSD"
+                        [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true"
+                        [yearRange]="yearRange">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Thời gian trích khấu hao (năm)'">
+                    </dft-label-validation>
+                    <input number type="text" id="trichKH" name="trichKH"
+                        formControlName='trichKH' pInputText maxlength="50">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Thời gian hết khấu hao'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="hetKH" [disabled]="true"
+                        [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true"
+                        [yearRange]="yearRange">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form"
+                        [title]="'Nguồn kinh phí'">
+                    </dft-label-validation>
+                    <p-dropdown formControlName="nguonKinhPhi"
+                        [options]="arrNguonKinhPhi"
+                        [placeholder]="dropdownPlaceholder"
+                        optionLabel="displayName" [showClear]="true"
+                        [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Mã sử dụng'">
+                    </dft-label-validation>
+                    <p-multiSelect [defaultLabel]="'Chọn'" [options]="maSD"
+                        optionLabel="displayName"
+                        formControlName="DropdownMultiple">
+                    </p-multiSelect>
+                </div>
+            </div>
+        </div>
+        <!-- view -->
+        <div class="row ui-fluid" *ngIf="isView">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('maEPCCode')"
+                        [title]="'Mã EPC'">
+                    </dft-label-validation>
+                    <!-- <textarea formControlName="maEPCCode" class="form-control" id="maEPCCode"
+                        maxlength="4000"></textarea> -->
+                    <input type="text" id="maEPCCode" name="maEPCCode"
+                        formControlName='maEPCCode' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('maEPCCode')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Mã quản lý </label>
+                    <div class="row" class="p-l-15">
+                        <i *ngIf="tinhTrangQRCodebool"
+                            class="icon-ma-su-dung fas fa-qrcode"></i>
+                        <i *ngIf="tinhTrangBarCodebool"
+                            class="icon-ma-su-dung m-l-30 fas fa-barcode"></i>
+                        <img *ngIf="tinhTrangRFIDbool"
+                            style="width: 35px; height: 40px; margin-left: 30px;"
+                            src="https://www.flaticon.com/premium-icon/icons/svg/2837/2837852.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!isView" style="text-align: right;">
+            <button type="button" class="btn btn-danger"
+                [disabled]="filesAllImg.length === 0" (click)="xoaListHA()"><i
+                    class="fas fa-trash"></i>
+                <span style="margin-left: 5px;">Xóa tất cả</span></button>
+        </div>
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Hình ảnh'">
+                    </dft-label-validation>
+                    <ngx-dropzone [accept]="imateAcceptTypes"
+                        [disabled]="uploading" [disableClick]="isView"
+                        (change)="onSelectAllHA($event)" [multiple]="true">
+                        <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                        <ngx-dropzone-image-preview
+                            ngProjectAs="ngx-dropzone-preview"
+                            *ngFor="let f of filesAllImg" [file]="f"
+                            [removable]="!isView" (removed)="onRemoveAllHA(f)">
+                            <ngx-dropzone-label title="{{f.name}}">
+                                {{ f.name |truncate:12}} </ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div *ngIf="isView" class="col-md-12">
+                <ul class="list-unstyled">
+                    <li *ngFor="let file of demoDto?.listHinhAnh">
+                        <a [title]="file.tenFile"
+                            (click)="onDownloadFile(file.linkFile)"
+                            class="text-primary">{{file.tenFile |truncate:30}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div *ngIf="!isView" style="text-align: right;">
+            <button type="button" class="btn btn-danger"
+                [disabled]="filesAllFile.length === 0"
+                (click)="xoaListFile()"><i class="fas fa-trash"></i>
+                <span style="margin-left: 5px;">Xóa tất cả</span></button>
+        </div>
+        <div class="ui-fluid row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Tài liệu đính kèm'">
+                    </dft-label-validation>
+                    <ngx-dropzone *ngIf="!isView" [disabled]="uploading"
+                        (change)="onSelectAllFile($event)" [multiple]="true"
+                        accept=".doc,.docx,application/pdf, application/vnd.ms-excel,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                    .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of filesAllFile"
+                            [removable]="!isView"
+                            (removed)="onRemoveAllFile(f)">
+                            <ngx-dropzone-label>{{ f.name |truncate:12}}
+                            </ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div *ngIf="isView" class="col-md-12">
+                <ul class="list-unstyled">
+                    <li *ngFor="let file of demoDto?.listFile">
+                        <a (click)="onDownloadFile(file.linkFile)"
+                            class="text-primary">{{file.tenFile
+                            |truncate:30}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')"
+                        [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control"
+                        id="ghiChu" rows="4" maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <p-accordion [multiple]="true">
+            <p-accordionTab header="Chốt giá cuối tài sản">
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form"
+                                [title]="'Người chốt giá'">
+                            </dft-label-validation>
+                            <br>
+                            <input disabled type="text" id="nguoiChotGia"
+                                name="nguoiChotGia"
+                                formControlName='nguoiChotGia' maxlength="100"
+                                pInputText />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form"
+                                [title]="'Thời điểm chốt giá'">
+                            </dft-label-validation>
+                            <br>
+                            <input disabled type="text" id="thoiDiemChotGia"
+                                name="thoiDiemChotGia"
+                                formControlName='thoiDiemChotGia'
+                                maxlength="100" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form"
+                                [title]="'Giá cuối tài sản (VNĐ)'">
+                            </dft-label-validation>
+                            <br>
+                            <input (blur)="changeGiaCuoiTS($event)" type="text"
+                                number type="text" id="giaCuoiTS"
+                                name="giaCuoiTS" pInputText
+                                formControlName='giaCuoiTS' maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-fluid row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form"
+                                [title]="'Nội dung chốt giá'">
+                            </dft-label-validation>
+                            <br>
+                            <input type="text" id="noiDungChotGia"
+                                name="noiDungChotGia"
+                                formControlName='noiDungChotGia'
+                                maxlength="4000" pInputText />
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- Vị trí tài sản -->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Vị trí tài sản">
+                <div>
+                    <p-table #dt [value]="viTriTSList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountVTTS==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:20%">Ngày</th>
+                                <th style="width:80%">Vị trí tài
+                                    sản</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td style="width:20%">
+                                    {{ record.ngayThucHien | truncate }} </td>
+                                <td style="width:80%">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- Thông tin sử dụng -->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Thông tin sử dụng">
+                <div>
+                    <p-table #dt [value]="thongTinSDList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountTTSD==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Từ ngày</th>
+                                <th class="width-150">Đến ngày</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung sử dụng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.tuNgay | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.denNgay | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.ndSuDung | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- Thông tin sửa chữa bảo dưỡng -->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Thông tin sửa chữa/bảo dưỡng">
+                <div>
+                    <p-table #dt [value]="thongTinSCBDList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountSCBD==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Ngày bắt đầu</th>
+                                <th class="width-150">Ngày hoàn thành</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung sửa chữa/bảo
+                                    dưỡng</th>
+                                <th class="width-150">Kết quả</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.ngayBatDau | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.ngayHoanThanh | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.noiDung | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.ketQua | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- TT hỏng -->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Thông tin hỏng">
+                <div>
+                    <p-table #dt [value]="thongTinHongList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountHong==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Ngày khai báo</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung hỏng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.ngayKhaiBao | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.noiDung | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- TT mất-->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Thông tin mất">
+                <div>
+                    <p-table #dt [value]="thongTinMatList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountMat==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Ngày khai báo</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung mất</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.ngayKhaiBao | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.noiDung | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- TT hủy-->
+        <p-accordion [multiple]="true" *ngIf="isView">
+            <p-accordionTab header="Thông tin hủy">
+                <div>
+                    <p-table #dt [value]="thongTinHuyList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountHuy==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Ngày khai báo</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung hủy</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.ngayKhaiBao | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.noiDung | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <!-- TT thanh lý-->
+        <p-accordion [multiple]="true">
+            <p-accordionTab header="Thông tin thanh lý" *ngIf="isView">
+                <div>
+                    <p-table #dt [value]="thongTinThanhLyList" [lazy]="true"
+                        [paginator]="paginator"
+                        currentPageReportTemplate="{{totalCountTL==0?'':' Hiển thị: {first}-{last}/{totalCountVTTS}'}} "
+                        [rows]="paginatorRows"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable"
+                        scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-150">Ngày khai báo</th>
+                                <th class="width-150">Đơn vị quản lý</th>
+                                <th class="width-150">Nội dung thanh lý</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-150">
+                                    {{ record.ngayKhaiBao | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.phongBanQuanLy | truncate }} </td>
+                                <td class="width-150">
+                                    {{ record.noiDung | truncate }} </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">
+                                    {{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveHidden]="isView"
+        [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'"
+        (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

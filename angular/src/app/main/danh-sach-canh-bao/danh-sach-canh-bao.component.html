@@ -1,0 +1,120 @@
+<div [@routerTransition]>
+    <section class="content-header" id="toanBoTS">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Danh sách Cảnh báo</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button style="width: 130px !important;" type="button" class="btn btn-success m-r-5 m-t-5" [buttonBusy]="exporting" (click)="exportToExcel()"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm">
+        <section class="content px-2">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập nội dung cảnh báo'" formControlName="keyword" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                    <br>
+                    <div class="ui-fluid row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Đơn vị'">
+                                </dft-label-validation>
+                                <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                </app-multiple-select-tree>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Người gửi thông báo'">
+                                </dft-label-validation>
+
+                                <p-dropdown formControlName="NguoiDung" [options]="listNguoiDung" placeholder="Chọn" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                </p-dropdown>
+                                <!-- {{loaiTaiSanValue}} -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-fluid row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Thời gian'">
+                                </dft-label-validation>
+                                <p-calendar formControlName="ThoiGian" selectionMode="range" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Hoạt động'">
+                                </dft-label-validation>
+
+                                <p-dropdown formControlName="HoatDong" [options]="listHoatDong" placeholder="Chọn" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                </p-dropdown>
+                                <!-- {{loaiTaiSanValue}} -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div>
+                    <p-table #dt [lazy]="true" [value]="records" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:80px">
+                                    STT
+                                </th>
+                                <th style="width:1000px">
+                                    Nội dung
+                                </th>
+                                <th style="width:250px">
+                                    Đơn vị
+                                </th>
+                                <th style="width:200px">
+                                    Thời gian
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record let-i="rowIndex">
+                            <tr class="ui-selectable-row">
+                                <td style="width:80px">
+                                    {{i+1}}
+                                </td>
+                                <td style="width:1000px">
+                                    {{record.noiDung}}
+                                </td>
+                                <td style="width:250px">
+                                    {{record.toChuc}}
+                                </td>
+                                <td style="width:200px">
+                                    {{record.thoiGian}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

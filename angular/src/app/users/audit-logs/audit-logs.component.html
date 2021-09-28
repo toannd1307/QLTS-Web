@@ -1,0 +1,127 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Lịch sử truy cập Người dùng</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-success m-r-5" [buttonBusy]="exporting" (click)="exportToExcelAuditLogs()"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getAuditLogs(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập tên người dùng'" [(ngModel)]="usernameAuditLog" (keyup.enter)="getAuditLogs(true)" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal">
+                        <div class="row ui-fluid">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <dft-label-validation [title]="'Dịch vụ'">
+                                    </dft-label-validation>
+                                    <p-dropdown [(ngModel)]="serviceName" [options]="arrService" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="false" [filter]="true" resetFilterOnHide="true" name="serviceName">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <dft-label-validation [title]="'Thời gian'">
+                                    </dft-label-validation>
+                                    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" name="rangeDates">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <p-table #dt [value]="primengTableHelperAuditLogs" [lazy]="true" (onLazyLoad)="getAuditLogs(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="Hiển thị: {first}-{last} / {totalRecords}"
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:75px"></th>
+                                <th style="width: 150px" pSortableColumn="executionTime">
+                                    Thời gian
+                                    <p-sortIcon field="executionTime"></p-sortIcon>
+                                </th>
+                                <th style="width: 150px" pSortableColumn="userName">
+                                    Tên người dùng
+                                    <p-sortIcon field="userName"></p-sortIcon>
+                                </th>
+                                <th style="width: 250px" pSortableColumn="serviceName">
+                                    Dịch vụ
+                                    <p-sortIcon field="serviceName"></p-sortIcon>
+                                </th>
+                                <th style="width: 150px" pSortableColumn="methodName">
+                                    Hành động
+                                    <p-sortIcon field="methodName"></p-sortIcon>
+                                </th>
+                                <th style="width: 180px" pSortableColumn="executionDuration">
+                                    Thời gian thực thi
+                                    <p-sortIcon field="executionDuration"></p-sortIcon>
+                                </th>
+                                <th style="width: 150px" pSortableColumn="clientIpAddress">
+                                    Địa chỉ IP
+                                    <p-sortIcon field="clientIpAddress"></p-sortIcon>
+                                </th>
+                                <th style="width: 150px" pSortableColumn="browserInfo">
+                                    Trình duyệt
+                                    <p-sortIcon field="browserInfo"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record="$implicit">
+                            <tr>
+                                <td class="text-center" style="width: 75px">
+                                    <i *ngIf="record.exception" class="fa fa-times text-danger"></i>
+                                    <i *ngIf="!record.exception" class="fa fa-check-circle text-success"></i>
+                                </td>
+                                <td style="width: 150px">
+                                    {{ record.executionTime | date:dateTimeFormatPipe}}
+                                </td>
+                                <td style="width: 150px">
+                                    {{record.userName}}
+                                </td>
+                                <td style="width: 250px">
+                                    {{l(record.serviceNameForView)}}
+                                </td>
+                                <td style="width: 150px">
+                                    {{record.methodName}}
+                                </td>
+                                <td style="width: 180px">
+                                    {{record.executionDuration + ' ms'}}
+                                </td>
+                                <td style="width: 150px">
+                                    {{record.clientIpAddress}}
+                                </td>
+                                <td style="width: 150px">
+                                    <span title="{{record.browserInfo}}">
+                                        {{record.browserInfo|truncate:30}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

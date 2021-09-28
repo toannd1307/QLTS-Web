@@ -1,0 +1,18 @@
+<div class="wrapper"
+  style="background-image: url('../assets/img/pattern.png') !important; background: #F7FAFB; opacity: 95%;"
+  id="content-height">
+  <div>
+    <app-header></app-header>
+  </div>
+  <!-- <div class="col-md-12"><p style="color: #ff0047; text-align: center;">CPU: {{data?.cpu}}, RAM: {{data?.ram}}</p></div> -->
+  <sidebar></sidebar>
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- <div *ngIf="isShow" class="text-center">
+    <button type="button" class="btn-scroll style-btn-scroll" (click)="gotoTop()"><i
+        class="pi pi-angle-double-up"></i></button>
+  </div> -->
+  <app-footer></app-footer>
+  <div id="sidebar-overlay" (click)="toggleSidebar()"></div>
+</div>

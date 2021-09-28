@@ -1,0 +1,35 @@
+<form class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="upload()">
+  <abp-modal-header [title]="'Nhập Excel'" (onCloseClick)="close()"></abp-modal-header>
+  <div class="modal-body">
+    <div class="ui-fluid row">
+      <div class="col-md-5">
+        <ngx-dropzone [disabled]="uploading" (change)="onSelect($event)" [multiple]="false" [accept]="excelAcceptTypes">
+          <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name |truncate:12 }}</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </div>
+      <div class="col-md-7">
+        <div class="ui-fluid row">
+          <div class="col-md-12">
+            <button [disabled]="uploading" [buttonBusy]="downLoading" type="button"
+              class="btn btn-success m-b-10 centerText w-100" (click)="download()">
+              <i class="fa fa-download"></i>
+              <span style="margin-left: 5px;">Tải file mẫu</span>
+            </button>
+          </div>
+        </div>
+        <div class="ui-fluid row">
+          <div class="col-md-12">
+            <textarea [busy]="uploading" class="form-control" style="background-color: #f4f5f8;" disabled
+              [(ngModel)]="returnMessage" name="returnMessage" rows="5" pInputTextarea></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <abp-modal-footer [cancelLabel]="'Đóng'" [cancelDisabled]="uploading" [saveDisabled]="files.length === 0 || saveDisabled"
+    [saveLabel]="'Tải lên'" (onCancelClick)="close()">
+  </abp-modal-footer>
+</form>

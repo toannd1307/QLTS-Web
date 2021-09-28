@@ -1,0 +1,29 @@
+<p-tabView *ngIf="isGranted('Pages.QuanLyTaiSan')" (onChange)="onTabChange($event)">
+    <p-tabPanel [headerStyle]="{'color': 'green'}" header="Toàn bộ tài sản" [selected]="+appSession.taiSanTabIndexActive===0">
+        <app-toan-bo-tai-san [isActive]="+appSession.taiSanTabIndexActive"></app-toan-bo-tai-san>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản chưa sử dụng" [selected]="+appSession.taiSanTabIndexActive===1">
+        <app-tai-san-chua-su-dung [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-chua-su-dung>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản đang sử dụng" [selected]="+appSession.taiSanTabIndexActive===2">
+        <app-tai-san-dang-su-dung [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-dang-su-dung>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản sửa chữa/bảo dưỡng" [selected]="+appSession.taiSanTabIndexActive===3">
+        <app-tai-san-sua-chua-bao-duong [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-sua-chua-bao-duong>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản mất" [selected]="+appSession.taiSanTabIndexActive===4">
+        <app-tai-san-mat [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-mat>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản hỏng" [selected]="+appSession.taiSanTabIndexActive===5">
+        <app-tai-san-hong [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-hong>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản thanh lý" [selected]="+appSession.taiSanTabIndexActive===6">
+        <app-tai-san-thanh-ly [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-thanh-ly>
+    </p-tabPanel>
+    <p-tabPanel header="Tài sản hủy" [selected]="+appSession.taiSanTabIndexActive===7">
+        <app-tai-san-huy [isActive]="+appSession.taiSanTabIndexActive"></app-tai-san-huy>
+    </p-tabPanel>
+    <p-tabPanel header="Báo hỏng/mất tài sản" [selected]="+appSession.taiSanTabIndexActive===8">
+        <app-khai-bao-hong-mat-tai-san [isActive]="+appSession.taiSanTabIndexActive"></app-khai-bao-hong-mat-tai-san>
+    </p-tabPanel>
+</p-tabView>

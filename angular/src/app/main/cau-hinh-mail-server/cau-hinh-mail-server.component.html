@@ -1,0 +1,163 @@
+<div [@routerTransition]>
+  <section class="content-header" id="tesst">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>Cài đặt cấu hình Mail Server</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <form [formGroup]="form" class="form-horizontal" autocomplete="off" (ngSubmit)="save()">
+      <div class="container-fluid">
+        <div class="card m-0">
+          <div class="card-header">
+            <div class="row ui-fluid">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <h5>Thông tin cấu hình Mail Server</h5>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <dft-label-validation [control]="form.get('host')" [title]="'Host *'">
+                  </dft-label-validation>
+                  <input maxlength="50" type="text" id="host" name="host" formControlName="host" pInputText />
+                  <dft-validation [control]="form.get('host')"> </dft-validation>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <dft-label-validation [control]="form.get('port')" [title]="'Port *'">
+                  </dft-label-validation>
+                  <input maxlength="10" type="text" id="port" name="port" formControlName="port" pInputText />
+                  <dft-validation [control]="form.get('port')"> </dft-validation>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <dft-label-validation [control]="form.get('email')" [title]="'Email *'">
+                  </dft-label-validation>
+                  <input maxlength="50" id="email" name="email" formControlName="email" pInputText pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$"/>
+                  <dft-validation [control]="form.get('email')"> </dft-validation>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <dft-label-validation [control]="form.get('password')" [title]="'Password *'">
+                  </dft-label-validation>
+                  <input maxlength="50" type="text" id="password" name="password" formControlName="password"
+                    pInputText />
+                  <dft-validation [control]="form.get('password')"> </dft-validation>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row ui-fluid">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <h5>Lựa chọn các trường hợp gửi email</h5>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_CapPhat" name="Cbx_CapPhat" formControlName="Cbx_CapPhat" binary="true">
+                  </p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Cấp phát</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_ThuHoi" name="Cbx_ThuHoi" formControlName="Cbx_ThuHoi" binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Thu hồi</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_DieuChuyen" name="Cbx_DieuChuyen" formControlName="Cbx_DieuChuyen" binary="true">
+                  </p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Điều chuyển</span>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_BaoMat" name="Cbx_BaoMat" formControlName="Cbx_BaoMat" binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Báo mất</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_BaoHong" name="Cbx_BaoHong" formControlName="Cbx_BaoHong" binary="true">
+                  </p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Báo hỏng</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_ThanhLy" name="Cbx_ThanhLy" formControlName="Cbx_ThanhLy" binary="true">
+                  </p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Thanh lý</span>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_SuaChuaBaoDuong" name="Cbx_SuaChuaBaoDuong" formControlName="Cbx_SuaChuaBaoDuong"
+                    binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Sửa chữa bảo dưỡng</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_BatDauKiemKe" name="Cbx_BatDauKiemKe" formControlName="Cbx_BatDauKiemKe"
+                    binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Bắt đầu kiểm kê</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_KetThucKiemKe" name="Cbx_KetThucKiemKe" formControlName="Cbx_KetThucKiemKe"
+                    binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Kết thúc kiểm kê</span>
+                </div>
+              </div>
+            </div>
+            <div class="row ui-fluid">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_HoanThanhPhieuDTMS" name="Cbx_HoanThanhPhieuDTMS"
+                    formControlName="Cbx_HoanThanhPhieuDTMS" binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Hoàn thành phiếu dự trù mua sắm</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <p-checkbox id="Cbx_HuyBoPhieuDTMS" name="Cbx_HuyBoPhieuDTMS" formControlName="Cbx_HuyBoPhieuDTMS"
+                    binary="true"></p-checkbox>
+                  <span style="font-weight: bold; margin-left: 8px;">Huỷ bỏ phiếu dự trù mua sắm</span>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-content-end">
+              <div class="col-lg-6 col-md-12 col-sm-12 text-right">
+                <button type="button" class="btn btn-primary m-r-5" (click)="save()" [disabled]="saving">
+                  <span>Lưu</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

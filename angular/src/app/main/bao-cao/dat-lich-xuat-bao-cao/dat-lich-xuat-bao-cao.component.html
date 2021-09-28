@@ -1,0 +1,74 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Đặt lịch xuất báo cáo</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-primary m-r-5 m-t-5 width-130" (click)="create()">
+                        <i class="fa fa-plus"></i>
+                        <span style="margin-left: 5px;">Thêm mới</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm">
+        <section class="content px-2">
+            <div class="card m-0">
+                <div>
+                    <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage(true, $event)"
+                        [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport"
+                        currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions"
+                        [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30"></th>
+                                <th class="width-200">Tên báo cáo
+                                </th>
+                                <th class="width-100">Lặp lại
+                                </th>
+                                <th class="width-200">Ngày giờ gửi báo cáo
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="view(record.id)">Xem</a>
+                                            <a class="dropdown-item" (click)="create(record.id)">Cập
+                                                nhật</a>
+                                            <a class="dropdown-item" (click)="delete(record)">Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-200">
+                                    {{ record.tenBaoCao | truncate }}
+                                </td>
+                                <td class="width-100">
+                                    {{ record.lapLai | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.ngayGio | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

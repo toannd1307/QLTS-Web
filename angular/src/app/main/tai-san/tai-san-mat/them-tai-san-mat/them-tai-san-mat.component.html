@@ -1,0 +1,99 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal w-auto" autocomplete="off" (ngSubmit)="save()">
+    <abp-modal-header [title]="'Thêm Tài sản khai báo mất'" (onCloseClick)="bsModalRef.hide()">
+    </abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập tên tài sản, serial number'" (change)="this.form.get('tenTaiSan').setValue($event.target.value)" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Loại tài sản'">
+                    </dft-label-validation>
+                    <app-dropdown-treeview-select [items]="loaiTaiSanItems" (valueChange)="this.form.get('loaiTaiSan').setValue($event)">
+                    </app-dropdown-treeview-select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Đơn vị quản lý'">
+                    </dft-label-validation>
+                    <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                    </app-multiple-select-tree>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p-table #dt [value]="records" [(selection)]="arrTaiSanChecked" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-150" pSortableColumn="tenTaiSan">Tên tài sản
+                            <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="loaiTaiSan">Loại tài sản
+                            <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="serialNumber">Serial Number
+                            <p-sortIcon field="serialNumber"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="nhaCungCap">Nhà cung cấp
+                            <p-sortIcon field="nhaCungCap"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="phongBanQuanLy">Đơn vị quản lý
+                            <p-sortIcon field="phongBanQuanLy"></p-sortIcon>
+                        </th>
+                        <th class="width-150" pSortableColumn="hinhThuc">Trạng thái
+                            <p-sortIcon field="hinhThuc"></p-sortIcon>
+                        </th>
+                        <th class="width-50">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+                    <tr class="ui-selectable-row">
+                        <td class="width-150">
+                            {{ record.tenTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.loaiTaiSan | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.serialNumber | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.nhaCungCap | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ record.phongBanQuanLy | truncate }}
+                        </td>
+                        <td class="width-150">
+                            {{ models.TrangThaiTaiSanHienThiSorted[record.hinhThuc] | truncate }}
+                        </td>
+                        <td class="width-50">
+                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <abp-modal-footer *ngIf="!isView" [cancelDisabled]="saving" [saveDisabled]="!arrTaiSanChecked?.length" (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

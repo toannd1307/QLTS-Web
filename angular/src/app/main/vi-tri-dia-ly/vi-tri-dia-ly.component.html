@@ -1,0 +1,128 @@
+<div [@routerTransition]>
+    <section class="content-header" id="toanBoTS">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Quản lý Vị trí địa lý</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-success m-r-5 m-t-5 width-130" (click)="importExcel()">
+                        <i class="fa fa-upload"></i>
+                        <span style="margin-left: 5px;">Nhập Excel</span></button>
+
+                    <button type="button" (click)="exportToExcel()" class="btn btn-success m-r-5 m-t-5 width-130" [buttonBusy]="exporting"><i class="fa fa-download"></i>
+                        <span style="margin-left: 5px;">Xuất Excel</span></button>
+
+                    <button type="button" class="btn btn-primary m-r-5 m-t-5 width-130" (click)="create()">
+                        <i class="fa fa-plus"></i>
+                        <span style="margin-left: 5px;">Thêm mới</span></button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm">
+        <section class="content px-2">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập tên vị trí'" formControlName="keyword" (keyup.enter)="getDataPage(true)" />
+                    </div>
+
+                    <br>
+                    <div class="ui-fluid row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Tỉnh/Thành phố'">
+                                </dft-label-validation>
+                                <p-dropdown formControlName="tinhThanh" [options]="tt"
+                                    [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true"
+                                    [filter]="true" resetFilterOnHide="true" (onChange)="getlistQH()">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <dft-label-validation [form]="form" [title]="'Quận/Huyện'">
+                                </dft-label-validation>
+                                <p-dropdown formControlName="quanHuyen" [options]="qh" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30"></th>
+                                <th class="width-150" pSortableColumn="tenViTri">Tên vị trí
+                                    <p-sortIcon field="tenViTri"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="tinhThanh">Tỉnh/Thành phố
+                                    <p-sortIcon field="tinhThanh"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="quanHuyen">Quận/Huyện
+                                    <p-sortIcon field="quanHuyen"></p-sortIcon>
+                                </th>
+                                <th class="width-170" pSortableColumn="diaChi">Địa chỉ
+                                    <p-sortIcon field="diaChi"></p-sortIcon>
+                                </th>
+                                <th class="width-170" pSortableColumn="ghiChu">Ghi chú
+                                    <p-sortIcon field="ghiChu"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="view(record.id)">Xem</a>
+                                            <a class="dropdown-item" (click)="create(record.id)">Cập
+                                                nhật</a>
+                                            <a class="dropdown-item" (click)="delete(record)">Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.tenViTri | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.tinhThanh | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.quanHuyen | truncate }}
+                                </td>
+                                <td class="width-170">
+                                    {{ record.diaChi | truncate }}
+                                </td>
+                                <td class="width-170">
+                                    {{ record.ghiChu | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

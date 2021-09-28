@@ -1,0 +1,199 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Quản lý Tài sản đang sử dụng</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập mã tài sản, tên tài sản, serial number, ngày mua, nguyên giá'" [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" [ngModelOptions]="{ standalone: true }" />
+                    </div>
+                    <form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm">
+                        <div class="ui-fluid row m-t-10">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Đơn vị quản lý'">
+                                    </dft-label-validation>
+                                    <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                    </app-multiple-select-tree>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Đơn vị quản lý'">
+                                    </dft-label-validation>
+                                    <app-dropdown-treeview-select [items]="toChucItems"
+                                        (valueChange)="toChucValue = $event">
+                                    </app-dropdown-treeview-select>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Loại tài sản'">
+                                    </dft-label-validation>
+                                    <app-dropdown-treeview-select [items]="loaiTaiSanItems" (valueChange)="loaiTaiSanValue = $event">
+                                    </app-dropdown-treeview-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui-fluid row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Nhà cung cấp'">
+                                    </dft-label-validation>
+                                    <p-dropdown formControlName="NhaCungCap" [options]="nhaCungCaps" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Mã sử dụng'">
+                                    </dft-label-validation>
+                                    <p-dropdown formControlName="MaSuDung" [options]="maSuDungs" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row justify-content-end">
+                        <div class="col-lg-6 col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-primary m-r-5" [disabled]="checkVisibleHoanTac()" (click)="deleteArrTaiSanChecked()"><i class="fas fa-undo ng-tns-c184-12"></i>
+                                <span style="margin-left: 5px;">Hoàn tác</span></button>
+
+                            <button type="button" class="btn btn-primary" (click)="capPhatMultiple()" [disabled]="checkVisibleCapPhat()">
+                                <i class="fas fa-external-link-square-alt"></i>
+                                <span style="margin-left: 5px;">Cấp phát</span></button>
+
+                            <button type="button" class="btn btn-primary m-l-5" (click)="dieuChuyenMultiple()" [disabled]="checkVisibleDieuChuyen()">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span style="margin-left: 5px;">Điều chuyển</span></button>
+                            <button type="button" class="btn btn-primary m-l-5" (click)="thuHoiMultiple()" [disabled]="checkVisibleThuHoi()">
+                                <i class="fas fa-retweet"></i>
+                                <span style="margin-left: 10px;">Thu hồi</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [value]="records" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}" [(selection)]="arrTaiSanChecked">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-30">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th class="width-30"></th>
+                                <th class="width-150" pSortableColumn="epcCode">Mã tài sản (EPC)
+                                    <p-sortIcon field="epcCode"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="tenTaiSan">Tên tài sản
+                                    <p-sortIcon field="tenTaiSan"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="loaiTaiSan">Loại tài sản
+                                    <p-sortIcon field="loaiTaiSan"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="serialNumber">Serial Number
+                                    <p-sortIcon field="serialNumber"></p-sortIcon>
+                                </th>
+                                <th class="width-200" pSortableColumn="nhaCungCap">Nhà cung cấp
+                                    <p-sortIcon field="nhaCungCap"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="ngayMua">Ngày mua
+                                    <p-sortIcon field="ngayMua">
+                                    </p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="nguyenGia">Nguyên giá
+                                    <p-sortIcon field="nguyenGia"></p-sortIcon>
+                                </th>
+                                <th class="width-250" pSortableColumn="phongBanQuanLy">Đơn vị quản lý
+                                    <p-sortIcon field="phongBanQuanLy"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="maSuDung">Mã sử dụng
+                                    <p-sortIcon field="maSuDung"></p-sortIcon>
+                                </th>
+                                <th class="width-250" pSortableColumn="viTriTaiSan">Vị trí tài sản
+                                    <p-sortIcon field="viTriTaiSan"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-30">
+                                    <p-tableCheckbox [value]="record" (selected)="checkVisibleCapPhat()">
+                                    </p-tableCheckbox>
+                                </td>
+                                <td class="width-30">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="view(record.id)">Xem</a>
+                                            <a class="dropdown-item" (click)="capPhat(record, 1)" *ngIf="record.capPhat">Cấp phát</a>
+                                            <a class="dropdown-item" (click)="dieuChuyen(record)" *ngIf="record.dieuChuyen">Điều chuyển</a>
+                                            <a class="dropdown-item" (click)="thuHoi(record)" *ngIf="record.thuHoi">Thu
+                                                hồi</a>
+                                            <a class="dropdown-item" (click)="hoanTac(record)" *ngIf="checkHoanTac(record)">Hoàn tác</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.epcCode | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.tenTaiSan | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.loaiTaiSan | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.serialNumber | truncate }}
+                                </td>
+                                <td class="width-200">
+                                    {{ record.nhaCungCap | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.ngayMua | truncate | date: 'dd/MM/yyyy' }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.nguyenGia | truncate | number: '2.' }}
+                                </td>
+                                <td class="width-250">
+                                    {{ record.phongBanQuanLy | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.maSuDung | truncate }}
+                                </td>
+                                <td class="width-250">
+                                    {{ record.viTriTaiSan | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,107 @@
+<div [@routerTransition]>
+    <section class="content-header" id="tesst">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Quản lý Khai báo hỏng/mất tài sản</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="card m-0">
+                <div class="card-header">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn bg-blue" (click)="getDataPage(true)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập người khai báo, ngày khai báo, nội dung khai báo'" (change)="this.form.get('timKiemKhaiBao').setValue($event.target.value)" (keyup.enter)="getDataPage(true)" />
+                    </div>
+                    <form class="form-horizontal" [formGroup]="form">
+                        <div class="ui-fluid row m-t-10">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Đơn vị khai báo'">
+                                    </dft-label-validation>
+                                    <app-multiple-select-tree [dataEdit]="toChucItems" (onSelect)="toChucValue = $event">
+                                    </app-multiple-select-tree>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="DmCaLamViec_lblMaCaLamViec" id="DmCaLamViec_lblMaCaLamViec">Khai
+                                        báo</label>
+                                    <p-dropdown formControlName="khaiBao" [options]="arrKhaiBao" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <p-table #dt [value]="records" [(selection)]="arrTaiSanChecked" [lazy]="true" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="width-25"></th>
+                                <th class="width-150" pSortableColumn="phongBanKhaiBao">Đơn vị khai báo
+                                    <p-sortIcon field="phongBanKhaiBao"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="nguoiKhaiBao">Người khai báo
+                                    <p-sortIcon field="nguoiKhaiBao"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="ngayKhaiBao">Ngày khai báo
+                                    <p-sortIcon field="ngayKhaiBao"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="noiDungKhaiBao">Nội dung khai báo
+                                    <p-sortIcon field="noiDungKhaiBao"></p-sortIcon>
+                                </th>
+                                <th class="width-150" pSortableColumn="khaiBao">Khai báo
+                                    <p-sortIcon field="khaiBao"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr class="ui-selectable-row">
+                                <td class="width-25">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="watch(record.id)">Xem</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="width-150">
+                                    {{ record.phongBanKhaiBao | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.nguoiKhaiBao | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.ngayKhaiBao | truncate | date: 'dd/MM/yyyy'}}
+                                </td>
+                                <td class="width-150">
+                                    {{ record.noiDungKhaiBao | truncate }}
+                                </td>
+                                <td class="width-150">
+                                    {{ models.TinhTrangSuDungTaiSanSorted[record.khaiBao] | truncate }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td class="demo" colspan="8" class="text-left">{{khongCoDuLieu}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

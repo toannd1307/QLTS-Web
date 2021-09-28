@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="vi">
+  <texts>
+    <!-- Framework Start -->
+    <text name="Are you sure?" value="Bạn chắc chắn không?" />
+    <text name="HomePage" value="Home page" />
+    <text name="About" value="About" />
+    <text name="WelcomeMessage" value="Welcome to MyProject!" />
+    <text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />
+    <text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
+    <text name="InvalidUserNameOrPassword" value="Tài khoản hoặc mật khẩu không chính xác" />
+    <text name="ThereIsNoTenantDefinedWithName{0}" value="There is no tenant defined with name {0}" />
+    <text name="TenantIsNotActive" value="Tenant {0} is not active." />
+    <text name="UserIsNotActiveAndCanNotLogin" value="Tài khoản {0} đang bị khóa không thể đăng nhập." />
+    <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
+    <text name="UserLockedOutMessage">The user account has been locked out. Please try again later.</text>
+    <text name="PleaseEnterLoginInformation" value="Please enter login information" />
+    <text name="TenancyName" value="Tenancy name" />
+    <text name="UserNameOrEmail" value="Tên đăng nhập hoặc email *" />
+    <text name="Password" value="Mật khẩu *" />
+    <text name="ResetPassword" value="Reset Password" />
+    <text name="UpdatePassword" value="Update Password" />
+    <text name="RememberMe" value="Ghi nhớ đăng nhập" />
+    <text name="LogIn" value="Đăng nhập" />
+    <text name="LoginFailed" value="Đăng nhập thất bại!" />
+    <text name="NameSurname" value="Name surname" />
+    <text name="UserName" value="User name" />
+    <text name="Name" value="Name" />
+    <text name="Surname" value="Surname" />
+    <text name="EmailAddress" value="Email address" />
+    <text name="Tenants" value="Tenants" />
+    <text name="SavedSuccessfully" value="Saved successfully" />
+    <text name="CreateNewTenant" value="Create new tenant" />
+    <text name="AdminEmailAddress" value="Admin email address" />
+    <text name="AdminPassword" value="Admin password" />
+    <text name="Save" value="Save" />
+    <text name="Cancel" value="Hủy" />
+    <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
+    <text name="DefaultPasswordIs" value="Default password is {0}" />
+    <text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
+    <text name="Register" value="Đăng ký" />
+    <text name="OrLoginWith" value="Or login with" />
+    <text name="WaitingForActivationMessage" value="Your account is waiting to be activated by system admin." />
+    <text name="TenantSelection" value="Tenant Selection" />
+    <text name="TenantSelection_Detail" value="Please select one of the following tenants." />
+    <text name="Logout" value="Đăng xuât" />
+    <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
+    <text name="DatabaseConnectionString" value="Database connection string" />
+    <text name="Users" value="Quản lý người dùng" />
+    <text name="IsActive" value="Is active" />
+    <text name="FullName" value="Full name" />
+    <text name="CreateNewUser" value="Create new user" />
+    <text name="Yes" value="Có" />
+    <text name="No" value="Không" />
+    <text name="Optional" value="Optional" />
+    <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
+    <text name="CurrentTenant">Current tenant</text>
+    <text name="NotSelected">Not selected</text>
+    <text name="Change">Change</text>
+    <text name="ChangeTenant">Change tenant</text>
+    <text name="MultiLevelMenu">Multi Level Menu</text>
+    <text name="Back">Trở về</text>
+    <text name="SuccessfullyRegistered">Successfully registered</text>
+    <text name="WaitingForEmailActivation">Your email address should be activated</text>
+    <text name="Roles">Quản lý vai trò</text>
+    <text name="DisplayName">Display Name</text>
+    <text name="Edit">Edit</text>
+    <text name="Delete">Delete</text>
+    <text name="CreateNewRole">Create new role</text>
+    <text name="RoleName">Role Name</text>
+    <text name="Actions">Actions</text>
+    <text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
+    <text name="CouldNotValidateExternalUser">Could not validate external user</text>
+    <text name="EditRole">Edit role</text>
+    <text name="EditTenant">Edit tenant</text>
+    <text name="EditUser">Edit user</text>
+    <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
+    <text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
+    <text name="ThisFieldIsRequired">Đây là trường bắt buộc</text>
+    <text name="PleaseWait">Please wait...</text>
+    <text name="Administration">Administration</text>
+    <text name="ClearAll">Clear all</text>
+    <text name="ClearOthers">Clear others</text>
+    <text name="LabelOptions">Label options</text>
+    <text name="Permissions">Permissions</text>
+    <text name="RoleDescription">Role description</text>
+    <text name="Refresh">Refresh</text>
+    <text name="Create">Create</text>
+    <text name="UserDetails">User details</text>
+    <text name="UserRoles">User roles</text>
+    <text name="ConfirmPassword">Confirm password</text>
+    <text name="Version">Version</text>
+    <text name="On">On</text>
+    <text name="Off">Off</text>
+    <text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
+    <text name="SuccessfullyDeleted">Successfully deleted</text>
+    <text name="StartTyping">Start Typing</text>
+    <text name="Skins">Skins</text>
+    <text name="Settings">Settings</text>
+    <text name="Filter">Filter</text>
+    <text name="CurrentPassword">Current Password</text>
+    <text name="NewPassword">New Password</text>
+    <text name="ConfirmNewPassword">Confirm New Password</text>
+    <text name="PasswordsDoNotMatch">Mật khẩu xác nhận chưa đúng!</text>
+    <text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Mật khẩu phải có ít nhất 6 ký tự</text>
+    <text name="UserDeleteWarningMessage">User {0} will be deleted.</text>
+    <text name="RoleDeleteWarningMessage">Role {0} will be deleted and unassigned from all assigned users.</text>
+    <text name="TenantDeleteWarningMessage">Tenant {0} will be deleted.</text>
+    <text name="SearchWithThreeDot">Search...</text>
+    <text name="PleaseEnterAtLeastNCharacter">Vui lòng nhập ít nhất {0} ký tự</text>
+    <text name="PleaseEnterNoMoreThanNCharacter">Vui lòng nhập không quá {0} ký tự</text>
+    <text name="InvalidEmailAddress">Invalid email address</text>
+    <text name="InvalidPattern">Invalid</text>
+    <text name="PairsDoNotMatch">Mật khẩu xác nhận chưa đúng!</text>
+    <text name="All">All</text>
+    <text name="TotalRecordsCount">Total: {0}</text>
+    <text name="Search">Search</text>
+    <text name="Clear">Clear</text>
+    <text name="Cancle">Hủy</text>
+    <text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
+    <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
+    <!-- Framework End -->
+
+
+    <!-- Tên quyền Start -->
+    <text name="Demo" value="Demo" />
+    <text name="BaoCaoNguoiDung" value="Báo cáo Người dùng" />
+    <text name="DatLichXuatBaoCao" value="Đặt lịch xuất báo cáo" />
+    <text name="BaoCaoCanhBao" value="Báo cáo Cảnh báo" />
+    <text name="BaoCaoThongTinThietBiRFID" value="Báo cáo Thông tin thiết bị RFID" />
+    <text name="BaoCaoThongTinTaiSan" value="Báo cáo Thông tin tài sản" />
+    <text name="QuanLyPhongBan" value="Quản lý Phòng ban" />
+    <text name="QuanLyDauDocCoDinh" value="Quản lý Đầu đọc cố định" />
+    <text name="QuanLyDauDocDiDong" value="Quản lý Đầu đọc di dộng" />
+    <text name="QuanLyLoaiTaiSan" value="Quản lý Loại tài sản" />
+    <text name="QuanLyNhaCungCap" value="Quản lý Nhà cung cấp" />
+    <text name="QuanLyViTriDiaLy" value="Quản lý Vị trí địa lý" />
+    <text name="QuanLyTaiSan" value="Quản lý Tài sản" />
+    <text name="QuanLyTaiSanPhongBan" value="Quản lý Tài sản Phòng ban" />
+    <text name="QuanLyTaiSanTong" value="Quản lý Tài sản Tổng" />
+    <text name="QuanLyKiemKeTaiSan" value="Quản lý Kiểm kê tài sản" />
+    <text name="QuanLyDuTruMuaSam" value="Quản lý Dự trù mua sắm" />
+    <text name="QuanLyCanhBao" value="Quản lý Cảnh báo" />
+    <text name="QuanLyMailServer" value="Quản lý Mail Server" />
+    <text name="QuanLyLichSuNguoiDung" value="Quản lý Lịch sử người dùng" />
+    <text name="GiamSatTaiSan" value="Quản lý Giám sát tài sản" />
+    <text name="TheoDoiKetNoiThietBi" value="Theo dõi kết nối thiết bị" />
+    
+    <!-- Tên quyền End -->
+  </texts>
+</localizationDictionary>

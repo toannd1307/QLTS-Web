@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("./SFProDisplay/FontsFree-Net-SFProDisplay-Regular.ttf");
+  }
+  @font-face {
+    font-family: "Exo2-SemiBold";
+    src: url("./EXO2/Exo2-SemiBold.ttf");
+  }
+  @font-face {
+    font-family: "Exo2-Regualar";
+    src: url("./EXO2/Exo2-Regular.ttf");
+  }

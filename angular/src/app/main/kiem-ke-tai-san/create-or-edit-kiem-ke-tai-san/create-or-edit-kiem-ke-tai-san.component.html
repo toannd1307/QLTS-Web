@@ -1,0 +1,184 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" (ngSubmit)="save()">
+  <abp-modal-header [title]="
+      id
+        ? isView
+          ? 'Xem chi tiết: ' + createInputDto.tenKiemKe
+          : 'Cập nhật: ' + createInputDto.tenKiemKe
+        : 'Thêm mới đợt kiểm kê'
+    " (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body fixed-modal-height">
+    <div class="row ui-fluid">
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('tenKiemKe')" [title]="'Tên đợt kiểm kê *'">
+          </dft-label-validation>
+          <input type="text" id="tenKiemKe" name="tenKiemKe" formControlName="tenKiemKe" maxlength="255" pInputText />
+          <dft-validation [control]="form.get('tenKiemKe')"> </dft-validation>
+        </div>
+      </div>
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('maKiemKe')" [title]="'Mã kiểm kê *'">
+          </dft-label-validation>
+          <input type="text" id="maKiemKe" name="maKiemKe" formControlName="maKiemKe" maxlength="50" pInputText />
+          <dft-validation [control]="form.get('maKiemKe')"> </dft-validation>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ui-fluid">
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('predictTimeStart')" [title]="'Thời gian bắt đầu dự kiến *'">
+          </dft-label-validation>
+          <p-calendar formControlName="predictTimeStart" [dateFormat]="dateFormatInput" [showIcon]="true"
+            [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+          </p-calendar>
+          <dft-validation [control]="form.get('predictTimeStart')">
+          </dft-validation>
+        </div>
+      </div>
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('predictTimeEnd')" [title]="'Thời gian kết thúc dự kiến *'">
+          </dft-label-validation>
+          <p-calendar formControlName="predictTimeEnd" [dateFormat]="dateFormatInput" [showIcon]="true"
+            [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+          </p-calendar>
+
+          <dft-validation [control]="form.get('predictTimeEnd')">
+          </dft-validation>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ui-fluid" *ngIf="isView">
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('realTimeStart')" [title]="'Thời gian bắt đầu thực tế *'">
+          </dft-label-validation>
+          <p-calendar formControlName="realTimeStart" [dateFormat]="dateFormatInput" [showIcon]="true"
+            [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+          </p-calendar>
+          <dft-validation [control]="form.get('realTimeStart')">
+          </dft-validation>
+        </div>
+      </div>
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('realTimeEnd')" [title]="'Thời gian kết thúc thực tế *'">
+          </dft-label-validation>
+          <p-calendar formControlName="realTimeEnd" [dateFormat]="dateFormatInput" [showIcon]="true"
+            [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+          </p-calendar>
+
+          <dft-validation [control]="form.get('realTimeEnd')">
+          </dft-validation>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ui-fluid">
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <div class="form-group">
+            <dft-label-validation [control]="form.get('department')" [title]="'Bộ phận được kiểm kê'">
+            </dft-label-validation>
+            <app-dropdown-treeview-select [disabled]="isToChucDisable()" [items]="toChucItems" [(value)]="toChucValue"
+              (valueChange)="setControlValue($event)">
+            </app-dropdown-treeview-select>
+            <dft-validation [control]="form.get('department')">
+            </dft-validation>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12 p-md-12 p-lg-6">
+        <div class="form-group">
+          <dft-label-validation [control]="form.get('status')" [title]="'Trạng thái'">
+          </dft-label-validation>
+          <input type="text" id="status" name="status" formControlName="status" maxlength="50" pInputText disabled />
+        </div>
+      </div>
+    </div>
+    <div class="row ui-fluid">
+      <div class="col-md-6">
+        <dft-label-validation [title]="'Danh sách người kiểm kê'">
+        </dft-label-validation>
+      </div>
+      <div class="col-md-6 text-right">
+        <button type="button" *ngIf="!isView" class="btn bg-danger m-b-10" [disabled]="isDeletes()" (click)="deleteAll()">
+          <i class="fas fa-trash"></i> Xóa
+        </button>
+        <button *ngIf="!isView" type="button" class="btn btn-primary m-l-5 m-b-10" (click)="addPerson()">
+          <i class="fa fa-plus-square"></i>
+          <span style="margin-left: 5px">Thêm mới</span>
+        </button>
+      </div>
+    </div>
+    <div>
+      <p-table #dt [value]="records" [lazy]="true" [loading]="loading" [(selection)]="selectedRows"
+        [scrollable]="scrollable" scrollHeight="{{ scrollHeight }}">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="width-30">
+              <p-tableHeaderCheckbox *ngIf="!isView"></p-tableHeaderCheckbox>
+            </th>
+            <th class="width-70">STT</th>
+            <th class="width-150">Tên</th>
+            <th class="width-150">Chức vụ</th>
+            <th class="width-150">Phòng Ban</th>
+            <th class="width-150">Email</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+          <tr class="ui-selectable-row" >
+            <td class="width-30">
+              <p-tableCheckbox *ngIf="!isView" [value]="record"></p-tableCheckbox>
+            </td>
+            <td class="width-70">{{ rowIndex+1 }}</td>
+            <td class="width-150">
+              {{ record.user.name | truncate }}
+            </td>
+            <td class="width-150">
+              {{ record.user.chucVu | truncate }}
+            </td>
+            <td class="width-150">
+              {{ record.tenToChuc  | truncate }}
+            </td>
+            <td class="width-150">
+              {{ record.user.emailAddress | truncate }}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td class="demo" colspan="8" class="text-left">
+              {{ khongCoDuLieu }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  
+    <div *ngIf="isView" class="m-t-20">
+      <div class="d-flex justify-content-between">
+        <dft-label-validation [title]="'Thông tin tài sản kiểm kê'">
+        </dft-label-validation>
+      </div>
+      <p-tabView>
+        <p-tabPanel header="Tài sản tìm thấy">
+          <app-danh-sach-kiem-ke-tai-san status="0" [id]="id" [isDisable]="finish"></app-danh-sach-kiem-ke-tai-san>
+        </p-tabPanel>
+        <p-tabPanel header="Tài sản không tìm thấy">
+          <app-danh-sach-kiem-ke-tai-san status="1" [id]="id" [isDisable]="finish"></app-danh-sach-kiem-ke-tai-san>
+        </p-tabPanel>
+        <p-tabPanel header="Tài sản ngoài danh sách">
+          <app-danh-sach-kiem-ke-tai-san status="2" [id]="id" [isDisable]="finish"></app-danh-sach-kiem-ke-tai-san>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" (onCancelClick)="close()" [saveHidden]="finish" [cancelHidden]="isView"
+    [saveLabel]="isView ? 'Kết thúc' : 'Lưu'" [iconName]="isView?'fa fa-flag-checkered':'fa fa-save'">
+  </abp-modal-footer>
+</form>

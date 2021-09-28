@@ -1,0 +1,133 @@
+.dropdown-toggle::after {
+    display: contents !important;
+}
+
+/* Table */
+body .ui-paginator {
+    background-color: #f4f4f4;
+    padding: 0.5em !important;
+    border: none !important;
+}
+
+.ui-paginator .ui-paginator-pages .ui-paginator-page {
+    border-radius: 50% !important;
+    background-color: #edecf8 !important;
+    color: #5867dd !important;
+    margin: 2px !important;
+}
+
+.ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background: #716aca !important;
+    color: #fff !important;
+}
+
+.ui-multiselect {
+    line-height: 1.5rem !important;
+}
+
+.ui-paginator .ui-paginator-current {
+    float: left !important;
+}
+
+// Bỏ boder table
+td,
+th {
+    border: none !important;
+}
+
+body .ui-table .ui-table-thead>tr>th {
+    word-break: break-word;
+}
+
+body .ui-table .ui-table-tbody>tr>td {
+    word-break: break-word;
+}
+
+body .ui-dropdown .ui-dropdown-label {
+    padding-right: 2.5rem !important;
+    max-width: 450px;
+}
+
+.ui-autocomplete-dropdown {
+    height: 38.9px !important;
+}
+
+.row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.ui-datepicker-trigger.ui-button {
+    height: 40.8px !important;
+}
+
+body .ui-inputtext {
+    line-height: 1.5rem !important;
+    font-size: 16px !important;
+}
+
+.ui-button {
+    padding: 0.25rem !important;
+}
+
+.sidebar {
+    overflow-y: unset !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.ui-megamenu-vertical {
+    width: 100% !important;
+    // height: calc(100vh - 300px) !important;
+    position: relative !important;
+}
+
+.main-sidebar {
+    overflow-y: unset;
+}
+
+.ui-megamenu {
+    border: none !important;
+}
+
+.ui-megamenu .ui-menuitem-icon {
+    width: 20px;
+}
+
+// Hiển thị cuộn khi nhiều hơn 3 bản ghi
+.ui-table-scrollable-body {
+    min-height: 300px !important;
+}
+
+body .ui-datepicker table td {
+    padding: 0;
+}
+
+body .ui-datepicker {
+    padding-top: 0.857em;
+    padding-bottom: 0;
+}
+
+body .ui-datepicker table {
+    margin: 0;
+}
+
+.ui-datepicker td>span,
+.ui-datepicker td>a {
+    padding: .2em !important;
+}
+
+
+// CHo phân trang sang bên phải
+.ui-table .ui-paginator-bottom {
+    text-align: right;
+}
+
+body .ui-paginator .ui-dropdown {
+    margin-right: 10px;
+}
+
+// Icon size
+body .pi {
+    font-size: 0.9em;
+}

@@ -1,0 +1,153 @@
+<form tabindex="-1" [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm"
+    (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ? (isView ? 'Xem chi tiết: ' + demoDto.tenTS : 'Cập nhật: ' + demoDto.tenTS) : 'Thêm mới Đầu đọc'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('tenTaiSan')" [title]="'Tên đầu đọc *'">
+                    </dft-label-validation>
+                    <input type="text" id="tenTaiSan" name="tenTaiSan" formControlName='tenTaiSan' maxlength="50"
+                        pInputText />
+                    <dft-validation [control]="form.get('tenTaiSan')">
+                    </dft-validation>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Loại tài sản'">
+                    </dft-label-validation>
+
+                    <p-dropdown [disabled]="true" formControlName="loaiTaiSan" [options]="loaiTaiSanItems"
+                        placeholder="Chọn" optionLabel="displayName" [showClear]="true" [filter]="true"
+                        resetFilterOnHide="true">
+                    </p-dropdown>
+                    <!-- {{loaiTaiSanValue}} -->
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('SerialNumber')" [title]="'S/N (Serial Number)'">
+                    </dft-label-validation>
+                    <input type="text" id="SerialNumber" name="SerialNumber" formControlName='SerialNumber' pInputText
+                        maxlength="255" />
+                    <dft-validation [control]="form.get('SerialNumber')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ProductNumber')" [title]="'P/N (Product Number)'">
+                    </dft-label-validation>
+                    <input type="text" id="ProductNumber" name="ProductNumber" formControlName='ProductNumber'
+                        pInputText maxlength="255" />
+                    <dft-validation [control]="form.get('ProductNumber')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ReaderMACId')" [title]="'ReaderMACId *'">
+                    </dft-label-validation>
+                    <input type="text" id="ReaderMACId" name="ReaderMACId" formControlName='ReaderMACId' pInputText
+                        maxlength="50" />
+                    <dft-validation [control]="form.get('ReaderMACId')">
+                    </dft-validation>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DmCaLamViec_lblMaCaLamViec" id="DmCaLamViec_lblMaCaLamViec">Nhà cung cấp</label>
+                    <!-- <p-autoComplete [suggestions]="suggestionsSingle" field="displayName" [dropdown]="true"
+                        [forceSelection]="true" formControlName="nhaCungCap" [size]="30"
+                        (completeMethod)="searchTrangThaiDuyet($event)">
+                    </p-autoComplete> -->
+                    <p-dropdown formControlName="nhaCungCap" [options]="listNhaCC" [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="true" [filter]="true" resetFilterOnHide="true">
+                    </p-dropdown>
+                    <!-- {{form.controls.nhaCungCap.value?.id}} -->
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('hangSanXuat')" [title]="'Hãng sản xuất'">
+                    </dft-label-validation>
+                    <input type="text" id="hangSanXuat" name="hangSanXuat" formControlName='hangSanXuat' maxlength="255"
+                        pInputText />
+                    <dft-validation [control]="form.get('hangSanXuat')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [title]="'Nguyên giá (VNĐ)'">
+                    </dft-label-validation>
+                    <input decimal id="nguyenGia" name="nguyenGia" formControlName='nguyenGia'
+                        maxlength="50" pInputText />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Ngày mua'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayMua" [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                    </p-calendar>
+                    <!-- {{form.controls.ngayMua.value}} -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row ui-fluid">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Ngày hết hạn bảo hành'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayHetHanBH" [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                    </p-calendar>
+                    <!-- {{form.controls.ngayHetHanBH.value}} -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <dft-label-validation [form]="form" [title]="'Ngày hết hạn sử dụng'">
+                    </dft-label-validation>
+                    <p-calendar formControlName="ngayHetHanSD" [dateFormat]="dateFormatInput" [showIcon]="true"
+                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                    </p-calendar>
+                    <!-- {{form.controls.ngayHetHanSD.value}} -->
+                </div>
+            </div>
+        </div>
+        <div class="row ui-fluid">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <dft-label-validation [control]="form.get('ghiChu')" [title]="'Ghi chú'">
+                    </dft-label-validation>
+                    <textarea formControlName="ghiChu" class="form-control" id="ghiChu" rows="4"
+                        maxlength="4000"></textarea>
+                    <dft-validation [control]="form.get('ghiChu')">
+                    </dft-validation>
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveHidden]="isView" [saveHidden]="isView"
+    [cancelLabel]="isView?'Đóng':'Hủy'" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

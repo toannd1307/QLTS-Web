@@ -1,0 +1,459 @@
+<form [formGroup]="form" class="form-horizontal" autocomplete="off" #createUserModal="ngForm" (ngSubmit)="save()">
+    <abp-modal-header
+        [title]="id ?( isView ? 'Xem chi tiết: '+ demoDto.ten : 'Cập nhật: '+ demoDto.ten ): 'Thêm mới Demo'"
+        (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body fixed-modal-height">
+        <p-accordion [multiple]="true">
+            <!-- Textbox Start -->
+            <p-accordionTab header="Textbox" [selected]="true">
+                <div class="row ui-fluid">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [control]="form.get('TextBox1')" [title]="'TextBox1 *'">
+                            </dft-label-validation>
+                            <input [formControl]="form.get('TextBox1')" required type="text" id="TextBox1"
+                                name="TextBox1" maxlength="50" formControlName='TextBox1' pInputText />
+                            {{form.controls.TextBox1.value}}
+                            <dft-validation [control]="form.get('TextBox1')"></dft-validation>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [control]="form.get('TextBox2')" [title]="'TextBox2 *'">
+                            </dft-label-validation>
+                            <input required type="text" id="TextBox2" name="TextBox2" maxlength="255"
+                                formControlName='TextBox2' pInputText /> {{form.controls.TextBox2.value}}
+                            <dft-validation [control]="form.get('TextBox2')"></dft-validation>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Checkbox'">
+                            </dft-label-validation>
+                            <br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-checkbox [formControl]="form.controls['Checkbox']" name="group1" value="New York"
+                                        label="New York" inputId="ny"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-checkbox [formControl]="form.controls['Checkbox']" name="group1"
+                                        value="San Francisco" label="San Francisco" inputId="sf"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-checkbox [formControl]="form.controls['Checkbox']" name="group1"
+                                        value="Los Angeles" label="Los Angeles" inputId="la"></p-checkbox>
+                                </div>
+                                <br> Selected : <span *ngFor="let city of form.controls.Checkbox.value"
+                                    style="margin-right:10px">{{city}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'Checkbox (True-False)'">
+                                    </dft-label-validation>
+                                    <br>
+                                    <p-checkbox [formControl]="form.controls['CheckboxTrueFalse']" name="Checkbox"
+                                        binary="true">
+                                    </p-checkbox>
+                                    {{form.controls.CheckboxTrueFalse.value}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <dft-label-validation [form]="form" [title]="'InputSwitch'">
+                                    </dft-label-validation>
+                                    <br>
+                                    <p-inputSwitch formControlName="InputSwitch"></p-inputSwitch>
+                                    <br>
+                                    <span>{{form.controls.InputSwitch.value}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'RadioButton'">
+                            </dft-label-validation>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-radioButton name="group1" value="1" label="Option 1"
+                                        formControlName="RadioButton" inputId="opt1"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-radioButton name="group1" value="2" label="Option 2"
+                                        formControlName="RadioButton" inputId="opt2"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p-radioButton name="group1" value="3" label="Option 3"
+                                        formControlName="RadioButton" inputId="opt3"></p-radioButton>
+                                </div>
+                            </div>
+                            Selected Value = {{form.controls.RadioButton.value||'none'}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Phone number'">
+                            </dft-label-validation>
+
+                            <input appPhoneNumber type="text" id="InputMask" name="InputMask"
+                                formControlName='InputMask' minlength="3" maxlength="15" pInputText />
+                            {{form.controls.InputMask.value}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Slider'">
+                            </dft-label-validation>
+                            <br>
+                            <p-slider formControlName="Slider" [style]="{'width':'14em','margin-top': '15px'}"
+                                [animate]="true">
+                            </p-slider>
+                            {{form.controls.Slider.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'ProgressBar'">
+                            </dft-label-validation>
+                            <p-progressBar [value]="value"></p-progressBar>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Description'">
+                            </dft-label-validation>
+                            <p-editor formControlName="Description" [style]="{'height':'320px'}"></p-editor>
+                            {{form.controls.Description.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ui-fluid">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'InputTextarea'">
+                            </dft-label-validation>
+                            <br>
+                            <textarea formControlName="InputTextarea" class="form-control"
+                                id="exampleFormControlTextarea1" rows="4"></textarea>
+                            {{form.controls.InputTextarea.value}}
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <!-- Textbox End -->
+
+            <!-- Number  Start -->
+            <p-accordionTab header="Number">
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'IntegerOnly'">
+                            </dft-label-validation>
+                            <br>
+                            <input type="text" number [max]="100000" (onValueChange)="logg($event)" pInputText
+                                formControlName="IntegerOnly" />
+                            {{form.controls.IntegerOnly.value}}
+                            <dft-validation [control]="form.get('IntegerOnly')"></dft-validation>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Decimal'">
+                            </dft-label-validation>
+                            <br>
+                            <input type="text" decimal [max]="95.5" (onValueChange)="logg($event)" pInputText
+                                formControlName="Decimal" />
+                            {{form.controls.Decimal.value}}
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <!-- Number  End -->
+
+            <!-- Calendar Start -->
+            <p-accordionTab header="Calendar">
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Date Basic'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateBasic" [dateFormat]="dateFormatInput" [showIcon]="true"
+                                [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateBasic.value}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Datetime'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateTime" [dateFormat]="dateFormatInput" [showIcon]="true"
+                                [showTime]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateTime.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DateDisable'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateDisable" [dateFormat]="dateFormatInput" [showIcon]="true"
+                                [disabledDates]="invalidDates" [disabledDays]="disabledDays" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateDisable.value}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DateMinMax'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateMinMax" [dateFormat]="dateFormatInput" [showIcon]="true"
+                                [minDate]="minDate" [maxDate]="maxDate" [monthNavigator]="true" [yearNavigator]="true"
+                                [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateMinMax.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DateFromTo'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateFromTo" selectionMode="range"
+                                [dateFormat]="dateFormatInput" [showIcon]="true" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateFromTo.value}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DateMultiple'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateMultiple" [dateFormat]="dateFormatInput" [showIcon]="true"
+                                selectionMode="multiple" [monthNavigator]="true" [yearNavigator]="true"
+                                [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.DateMultiple.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DateMultipleMonth'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="DateMultipleMonth" [numberOfMonths]="2"
+                                [dateFormat]="dateFormatInput" [showIcon]="true">
+                            </p-calendar>
+                            {{form.controls.DateMultipleMonth.value}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'MonthOnly'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="MonthOnly" view="month" [dateFormat]="dateFormatMonthOnlyInput"
+                                [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                [yearRange]="yearRange">
+                            </p-calendar>
+                            {{form.controls.MonthOnly.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'Time Only'">
+                            </dft-label-validation>
+                            <p-calendar formControlName="TimeOnly" [timeOnly]="true" [showIcon]="true">
+                            </p-calendar>
+                            {{form.controls.TimeOnly.value}}
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <!-- Calendar End -->
+
+            <!-- Combobox Start -->
+            <p-accordionTab header="Combobox">
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DropDownTreeViewToChuc'">
+                            </dft-label-validation>
+                            <app-dropdown-treeview-select [(value)]="toChucValue" [items]="toChucItems"
+                                (valueChange)="toChucValue = $event">
+                            </app-dropdown-treeview-select>
+                            {{toChucValue}}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DropDownTreeViewLoaiTaiSan'">
+                            </dft-label-validation>
+                            <app-dropdown-treeview-select [(value)]="loaiTaiSanValue" [items]="loaiTaiSanItems"
+                                (valueChange)="loaiTaiSanValue = $event">
+                            </app-dropdown-treeview-select>
+                            {{loaiTaiSanValue}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="DmCaLamViec_lblMaCaLamViec" id="DmCaLamViec_lblMaCaLamViec">AutoComplete
+                                Single</label>
+                            <p-autoComplete [suggestions]="suggestionsSingle" field="displayName" [dropdown]="true"
+                                [forceSelection]="true" formControlName="AutoCompleteSingle" [size]="30"
+                                (completeMethod)="searchTrangThaiDuyet($event)">
+                            </p-autoComplete>
+                            {{form.controls.AutoCompleteSingle.value?.id}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="DmCaLamViec_lblMaCaLamViec" id="DmCaLamViec_lblMaCaLamViec">AutoComplete
+                                Multiple</label>
+                            <p-autoComplete [suggestions]="suggestionsMultiple" field="displayName" [multiple]="true"
+                                [dropdown]="true" [forceSelection]="true" formControlName="AutoCompleteMultiple"
+                                (completeMethod)="search($event)">
+                            </p-autoComplete>
+                            <ul>
+                                <li *ngFor="let c of form.controls.AutoCompleteMultiple.value">
+                                    {{c.id + ' - ' + c.displayName}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-fluid row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DropdownSingle'">
+                            </dft-label-validation>
+                            <p-dropdown formControlName="DropdownSingle" [options]="arrTrangHieuLuc"
+                                [placeholder]="dropdownPlaceholder" optionLabel="displayName" [showClear]="false"
+                                [filter]="true" resetFilterOnHide="true">
+                            </p-dropdown>
+                            {{form.controls.DropdownSingle.value?.id}}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <dft-label-validation [form]="form" [title]="'DropdownMultiple'">
+                            </dft-label-validation>
+                            <p-multiSelect [defaultLabel]="'Chọn'"  [options]="demos" optionLabel="displayName"
+                                formControlName="DropdownMultiple">
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <!-- Combobox End -->
+
+            <!-- UploadFile Start -->
+            <p-accordionTab header="UploadFile">
+                <div class="ui-fluid row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [title]="'Ảnh'">
+                            </dft-label-validation>
+                            <ngx-dropzone [accept]="imateAcceptTypes" [disabled]="uploading"
+                            [disableClick]="isView" (change)="onSelectImageFile($event)" [multiple]="true">
+                                <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                    *ngFor="let f of imageFiles" [file]="f" [removable]="!isView"
+                                    (removed)="onRemoveImageFile(f)">
+                                    <ngx-dropzone-label title="{{f.name}}">{{ f.name |truncate:12}}
+                                    </ngx-dropzone-label>
+                                </ngx-dropzone-image-preview>
+                            </ngx-dropzone>
+                        </div>
+                    </div>
+                    <div *ngIf="isView" class="col-md-12">
+                        <ul class="list-unstyled">
+                            <li *ngFor="let file of demoDto?.listDemoFile">
+                                <a [title]="file.tenFile" *ngIf="file.loaiFile===1"
+                                    (click)="onDownloadFile(file.linkFile)"
+                                    class="text-primary">{{file.tenFile |truncate:30}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ui-fluid row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <dft-label-validation [title]="'All'">
+                            </dft-label-validation>
+                            <ngx-dropzone [disabled]="uploading" (change)="onSelectAllFile($event)" [disableClick]="isView"
+                                [multiple]="true">
+                                <ngx-dropzone-label>Chọn file...</ngx-dropzone-label>
+                                <ngx-dropzone-preview *ngFor="let f of allFiles" [removable]="!isView"
+                                    (removed)="onRemoveAllFile(f)">
+                                    <ngx-dropzone-label title="{{f.name}}">{{ f.name |truncate:12}}</ngx-dropzone-label>
+                                </ngx-dropzone-preview>
+                            </ngx-dropzone>
+                        </div>
+                    </div>
+                    <div *ngIf="isView" class="col-md-12">
+                        <ul class="list-unstyled">
+                            <li *ngFor="let file of demoDto?.listDemoFile">
+                                <a [title]="file.tenFile" *ngIf="file.loaiFile===2"
+                                    (click)="onDownloadFile(file.linkFile)"
+                                    class="text-primary">{{file.tenFile |truncate:30}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <!-- UploadFile End -->
+        </p-accordion>
+    </div>
+    <abp-modal-footer [saveHidden]="isView" [cancelLabel]="isView?'Đóng':'Hủy'" [cancelDisabled]="saving"
+        (onCancelClick)="close()">
+    </abp-modal-footer>
+</form>

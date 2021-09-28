@@ -1,0 +1,57 @@
+<form [formGroup]="form" class="form-horizontal" autocomplete="off" #editRoleForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'Cập nhật: '+role.name" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <p-tabView>
+      <p-tabPanel header="Tên vai trò" [selected]="!isPermissionActive">
+        <div class="row ui-fluid">
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('TenVaiTro')" [title]="'Tên vai trò *'">
+              </dft-label-validation>
+              <input formControlName="TenVaiTro" type="text" class="form-control" name="TenVaiTro" id="TenVaiTro"
+                maxlength="32" />
+              <dft-validation [control]="form.get('TenVaiTro')"></dft-validation>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <dft-label-validation [control]="form.get('TenHienThi')" [title]="'Tên hiển thị *'">
+              </dft-label-validation>
+              <input formControlName="TenHienThi" type="text" class="form-control" name="TenHienThi" id="TenHienThi"
+                maxlength="32" />
+              <dft-validation [control]="form.get('TenHienThi')"></dft-validation>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ui-fluid">
+          <div class="col-md-12">
+            <div class="form-group">
+              <dft-label-validation [form]="form" [title]="'Ghi chú'">
+              </dft-label-validation>
+              <br>
+              <textarea formControlName="GhiChu" class="form-control" id="GhiChu" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Phân quyền" [selected]="isPermissionActive">
+        <div class="form-group row mb-0">
+          <ng-container *ngFor="let permission of permissions; let i = index">
+            <div class="col-md-6">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [id]="'permission_' + i"
+                  [checked]="isPermissionChecked(permission.name)" [disabled]="role.isStatic"
+                  (change)="onPermissionChange(permission, $event)" />
+                <label class="custom-control-label" [for]="'permission_' + i">
+                  {{ permission.displayName }}
+                </label>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>
