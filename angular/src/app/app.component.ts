@@ -1,5 +1,6 @@
 // tslint:disable
 import { Component, Injector, OnInit, Renderer2 } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AppComponentBase } from '@shared/app-component-base';
 import { SignalRAspNetCoreHelper } from '@shared/helpers/SignalRAspNetCoreHelper';
 import { LayoutStoreService } from '@shared/layout/layout-store.service';
@@ -9,11 +10,10 @@ import { LayoutStoreService } from '@shared/layout/layout-store.service';
 })
 export class AppComponent extends AppComponentBase implements OnInit {
   sidebarExpanded: boolean;
-
   constructor(
     injector: Injector,
     private renderer: Renderer2,
-    private _layoutStore: LayoutStoreService
+    private _layoutStore: LayoutStoreService,
   ) {
     super(injector);
   }

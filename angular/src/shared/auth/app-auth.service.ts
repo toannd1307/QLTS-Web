@@ -35,7 +35,6 @@ export class AppAuthService {
 
     loginCallback(data?: IAuthenticateSSOModel, finallyCallback?: () => void): void {
         finallyCallback = finallyCallback || (() => { });
-
         this._tokenAuthService.loginSSO(data).subscribe((result: AuthenticateSSOResultModel) => {
             console.log('aaaa', result);
             this._tokenAuthService.externalAuthenticate(new ExternalAuthenticateModel({
@@ -64,7 +63,9 @@ export class AppAuthService {
                 abp.appPath
             );
             if (reload !== false) {
-                location.href = AppConsts.appBaseUrl;
+                // sso
+                location.href = 'https://devsso.smart-office.vn/sso/logout?client_id=SMART_OFFICE_DEV&redirect_uri=https://qlts.mobifone.vn';
+                // location.href = AppConsts.appBaseUrl;
             }
         });
     }

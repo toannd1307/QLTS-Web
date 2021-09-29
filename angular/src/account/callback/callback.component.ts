@@ -15,16 +15,11 @@ export class CallbackComponent implements OnInit  {
         private _authService: AppAuthService) {}
 
     ngOnInit() {
-        console.log(this.router.url);
         this.route.fragment.subscribe(fragment => {
            const token_type =  new URLSearchParams(fragment).get('token_type');
            const id_token =  new URLSearchParams(fragment).get('id_token');
            const refresh_token =  new URLSearchParams(fragment).get('refresh_token');
            const session_id =  new URLSearchParams(fragment).get('sessionId');
-           console.log(token_type);
-           console.log(id_token);
-           console.log(refresh_token);
-           console.log(session_id);
 
            const data: IAuthenticateSSOModel = ({
                Authorization: 'Bearer' + ' ' + id_token,
@@ -32,10 +27,7 @@ export class CallbackComponent implements OnInit  {
                TenantCode: 'mobifone.vn',
            });
 
-           console.log(data);
-
            this._authService.loginCallback(data, () => {
-               console.log('co vao day k nao 123');
             abp.utils.setCookieValue(
                 'taiSanTabIndexActive',
                 '0',
