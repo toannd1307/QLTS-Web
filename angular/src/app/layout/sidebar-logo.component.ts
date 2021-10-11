@@ -1,7 +1,8 @@
 // tslint:disable
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { AppComponentBase } from '@shared/app-component-base';
 import { LayoutStoreService } from '@shared/layout/layout-store.service';
 
 @Component({
@@ -22,15 +23,18 @@ import { LayoutStoreService } from '@shared/layout/layout-store.service';
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidebarLogoComponent implements OnInit {
+export class SidebarLogoComponent extends AppComponentBase implements OnInit  {
   isMobile = false;
+  shownLogo = 'https://devimages.smart-office.vn/images/';
 
   constructor
-    (public breakpointObserver: BreakpointObserver,
+    (injector: Injector,
+      public breakpointObserver: BreakpointObserver,
       private _layoutStore: LayoutStoreService) {
-
+        super(injector);
   }
   ngOnInit(): void {
+    this.shownLogo = this.shownLogo + this.appSession.logoImage;
     this.breakpointObserver
       .observe([
         Breakpoints.XSmall,

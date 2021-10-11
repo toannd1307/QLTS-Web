@@ -31,6 +31,10 @@ export class AppSessionService {
         return +abp.utils.getCookieValue('taiSanTabIndexActive');
     }
 
+    get logoImage(): string {
+        return abp.utils.getCookieValue('tenantLogo');
+    }
+
     get application(): ApplicationInfoDto {
         return this._application;
     }

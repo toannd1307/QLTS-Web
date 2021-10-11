@@ -36,7 +36,6 @@ export class AppAuthService {
     loginCallback(data?: IAuthenticateSSOModel, finallyCallback?: () => void): void {
         finallyCallback = finallyCallback || (() => { });
         this._tokenAuthService.loginSSO(data).subscribe((result: AuthenticateSSOResultModel) => {
-            console.log('aaaa', result);
             this._tokenAuthService.externalAuthenticate(new ExternalAuthenticateModel({
                 providerAccessCode: "Mobifone",
                 providerKey: result.id,
@@ -72,7 +71,6 @@ export class AppAuthService {
 
     authenticate(finallyCallback?: () => void): void {
         finallyCallback = finallyCallback || (() => { });
-
         this._tokenAuthService
             .authenticate(this.authenticateModel)
             .pipe(

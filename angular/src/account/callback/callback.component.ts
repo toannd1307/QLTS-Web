@@ -1,7 +1,7 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {OnInit, Component} from '@angular/core';
 import {
-    IAuthenticateSSOModel
+    IAuthenticateSSOModel, TenantSSOResultModel, UserServiceProxy
 } from '@shared/service-proxies/service-proxies';
 import { AppAuthService } from '@shared/auth/app-auth.service';
 import { AppComponentBase } from '@shared/app-component-base';
@@ -12,7 +12,8 @@ export class CallbackComponent implements OnInit  {
     constructor(
         private route: ActivatedRoute, 
         private router: Router,
-        private _authService: AppAuthService) {}
+        private _authService: AppAuthService,
+        private _userServiceProxy: UserServiceProxy) {}
 
     ngOnInit() {
         this.route.fragment.subscribe(fragment => {
@@ -35,6 +36,15 @@ export class CallbackComponent implements OnInit  {
                 abp.appPath
               );
            });
+
+           this._userServiceProxy.getTenant(data).subscribe((result: TenantSSOResultModel) => {
+            abp.utils.setCookieValue(
+                'tenantLogo',
+                'logo/' + result.id + "/" + result.logo,
+                new Date(new Date().setDate(new Date().getDate() + 1)),
+                abp.appPath
+              );
+           })
         });
     }
 }
