@@ -3,6 +3,7 @@ import { AbpMultiTenancyService } from 'abp-ng2-module';
 import { Injectable } from '@angular/core';
 import {
     ApplicationInfoDto,
+    ChildAppsSSODto,
     GetCurrentLoginInformationsOutput,
     SessionServiceProxy,
     TenantLoginInfoDto,
@@ -33,6 +34,10 @@ export class AppSessionService {
 
     get logoImage(): string {
         return abp.utils.getCookieValue('tenantLogo');
+    }
+
+    get childApps(): ChildAppsSSODto[] {
+        return JSON.parse(abp.utils.getCookieValue('childApps'));
     }
 
     get application(): ApplicationInfoDto {

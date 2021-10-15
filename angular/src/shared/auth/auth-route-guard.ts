@@ -21,8 +21,8 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (!this._sessionService.user) {
             // sso
-            location.href = 'https://devsso.smart-office.vn/sso/authorize-spa?response_type=id_token%20token&scope=openid&nonce=anything&state=anything&client_id=SMART_OFFICE_DEV&redirect_uri=https://qlts.mobifone.vn/account/callback&tenant_code=10'
-            // this._router.navigate(['/account/login']);
+            location.href = 'https://devsso.smart-office.vn/sso/authorize-spa?response_type=id_token%20token&scope=openid&nonce=anything&state=anything&client_id=SMART_OFFICE_DEV&redirect_uri=http://localhost:4200/account/callback&tenant_code=10'
+            //this._router.navigate(['/account/login']);
             return false;
         }
 
@@ -45,8 +45,8 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
     selectBestRoute(): string {
         if (!this._sessionService.user) {
             // sso
-            return location.href = 'https://devsso.smart-office.vn/sso/authorize-spa?response_type=id_token%20token&scope=openid&nonce=anything&state=anything&client_id=SMART_OFFICE_DEV&redirect_uri=https://qlts.mobifone.vn/account/callback&tenant_code=10';
-            // return '/account/login';
+            return location.href = 'https://devsso.smart-office.vn/sso/authorize-spa?response_type=id_token%20token&scope=openid&nonce=anything&state=anything&client_id=SMART_OFFICE_DEV&redirect_uri=http://localhost:4200/account/callback&tenant_code=10';
+            //return '/account/login';
         }
 
         if (this._permissionChecker.isGranted('Pages.Users')) {

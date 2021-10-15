@@ -9,6 +9,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
@@ -36,6 +37,7 @@ import { HeaderLanguageMenuComponent } from './layout/header-language-menu.compo
 import { HeaderUserMenuComponent } from './layout/header-user-menu.component';
 import { FooterComponent } from './layout/footer.component';
 import { SidebarComponent } from './layout/sidebar.component';
+import { ChildApplicationsComponent } from './layout/child-applications.component';
 import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
@@ -69,6 +71,7 @@ import { HeaderNotificationsComponent } from './layout/header-notifications/head
     HeaderUserMenuComponent,
     FooterComponent,
     SidebarComponent,
+    ChildApplicationsComponent,
     SidebarLogoComponent,
     SidebarUserPanelComponent,
     SidebarMenuComponent,
@@ -77,6 +80,7 @@ import { HeaderNotificationsComponent } from './layout/header-notifications/head
   imports: [
     CommonModule,
     MatCarouselModule.forRoot(),
+    MatSidenavModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

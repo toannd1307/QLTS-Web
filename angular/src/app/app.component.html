@@ -6,6 +6,7 @@
   </div>
   <!-- <div class="col-md-12"><p style="color: #ff0047; text-align: center;">CPU: {{data?.cpu}}, RAM: {{data?.ram}}</p></div> -->
   <sidebar></sidebar>
+  <childApplications></childApplications>
   <div class="content-wrapper">
     <router-outlet></router-outlet>
   </div>
@@ -16,3 +17,4 @@
   <app-footer></app-footer>
   <div id="sidebar-overlay" (click)="toggleSidebar()"></div>
 </div>
+<div id="content-height" class="blur-body"></div>

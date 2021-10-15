@@ -63,8 +63,8 @@ export class AppAuthService {
             );
             if (reload !== false) {
                 // sso
-                location.href = 'https://devsso.smart-office.vn/sso/logout?client_id=SMART_OFFICE_DEV&redirect_uri=https://qlts.mobifone.vn';
-                // location.href = AppConsts.appBaseUrl;
+                location.href = 'https://devsso.smart-office.vn/sso/logout?client_id=SMART_OFFICE_DEV&redirect_uri=http://localhost:4200/';
+                //location.href = AppConsts.appBaseUrl;
             }
         });
     }

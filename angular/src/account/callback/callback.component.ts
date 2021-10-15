@@ -4,6 +4,7 @@ import {
     IAuthenticateSSOModel, TenantSSOResultModel, UserServiceProxy
 } from '@shared/service-proxies/service-proxies';
 import { AppAuthService } from '@shared/auth/app-auth.service';
+import { forkJoin } from 'rxjs';
 import { AppComponentBase } from '@shared/app-component-base';
 @Component({
     template: ''
@@ -44,7 +45,27 @@ export class CallbackComponent implements OnInit  {
                 new Date(new Date().setDate(new Date().getDate() + 1)),
                 abp.appPath
               );
-           })
+           });
+
+           forkJoin(
+            this._userServiceProxy.getTenant(data),
+            this._userServiceProxy.getChildApps(data)
+          ).subscribe(([tenant, childApps]) => {
+            abp.utils.setCookieValue(
+                'tenantLogo',
+                'logo/' + tenant.id + "/" + tenant.logo,
+                new Date(new Date().setDate(new Date().getDate() + 1)),
+                abp.appPath
+              );
+              abp.utils.setCookieValue(
+                'childApps',
+                JSON.stringify(childApps),
+                new Date(new Date().setDate(new Date().getDate() + 1)),
+                abp.appPath
+              );
+          });
+
+           
         });
     }
 }

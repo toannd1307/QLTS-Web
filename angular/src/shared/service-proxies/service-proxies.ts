@@ -13874,6 +13874,76 @@ export interface IAuthenticateSSOResultModel {
     userApps: any | undefined;
 }
 
+export class ChildAppsSSODto implements IChildAppsSSODto {
+    id: string | undefined;
+    appName: string | undefined;
+    appCode: string | undefined;
+    isDelete: number | undefined;
+    image: string | undefined;
+    url: string | undefined;
+    order: number | undefined;
+    tenantCode: string | undefined;
+
+    constructor(data?: IChildAppsSSODto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.appName = _data["appName"];
+            this.appCode = _data["appCode"];
+            this.isDelete = _data["isDelete"];
+            this.url = _data["url"];
+            this.order = _data["order"];
+            this.tenantCode = _data["tenantCode"];
+            this.image = _data["image"];
+        }
+    }
+
+    static fromJS(data: any): ChildAppsSSODto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChildAppsSSODto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["appName"] = this.appName;
+        data["appCode"] = this.appCode;
+        data["isDelete"] = this.isDelete;
+        data["url"] = this.url;
+        data["order"] = this.order;
+        data["tenantCode"] = this.tenantCode;
+        data["image"] = this.image;
+        return data; 
+    }
+
+    clone(): ChildAppsSSODto {
+        const json = this.toJSON();
+        let result = new ChildAppsSSODto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IChildAppsSSODto {
+    id: string | undefined;
+    appName: string | undefined;
+    appCode: string | undefined;
+    isDelete: number | undefined;
+    url: string | undefined;
+    order: number | undefined;
+    tenantCode: string | undefined;
+}
+
 export class TenantSSOResultModel implements ITenantSSOResultModel {
     id: string | undefined;
     tenantName: string | undefined;
@@ -14649,6 +14719,61 @@ export class UserServiceProxy {
     /**
      * @return Success
      */
+
+    // get child apps SSO
+    getChildApps(headers: IAuthenticateSSOModel): Observable<ChildAppsSSODto[]> {
+        let url_ = this.ssoUrl + "/account/tenantApp/getWorkspaceApps";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "SessionId": headers.SessionId,
+                "TenantCode": headers.TenantCode,
+                "Authorization": headers.Authorization,
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetChildAppsSSOProviders(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetChildAppsSSOProviders(<any>response_);
+                } catch (e) {
+                    return <Observable<ChildAppsSSODto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ChildAppsSSODto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetChildAppsSSOProviders(response: HttpResponseBase): Observable<ChildAppsSSODto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(ChildAppsSSODto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ChildAppsSSODto[]>(<any>null);
+    }
 
         // get tenant SSO
         getTenant(headers: IAuthenticateSSOModel): Observable<TenantSSOResultModel> {

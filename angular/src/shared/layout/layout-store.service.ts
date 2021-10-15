@@ -8,7 +8,8 @@ import { LayoutConfig } from './layout-config';
 export class LayoutStoreService {
   public readonly config$: Observable<LayoutConfig>;
   private readonly initialLayoutConfig: LayoutConfig = {
-    sidebarExpanded: true
+    sidebarExpanded: true,
+    childAppsExpanded: true,
   };
   private configSource: BehaviorSubject<LayoutConfig>;
 
@@ -24,9 +25,22 @@ export class LayoutStoreService {
     ) as Observable<boolean>;
   }
 
+  get childAppsExpanded(): Observable<boolean> {
+    return this.config$.pipe(
+      pluck('childAppsExpanded'),
+      distinctUntilChanged()
+    ) as Observable<boolean>;
+  }
+
   public setSidebarExpanded(value: boolean): void {
     this.configSource.next(
       Object.assign(this.configSource.value, { sidebarExpanded: value })
+    );
+  }
+
+  public setChildAppsExpanded(value: boolean): void {
+    this.configSource.next(
+      Object.assign(this.configSource.value, { childAppsExpanded: value })
     );
   }
 }

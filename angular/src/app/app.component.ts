@@ -41,9 +41,11 @@ export class AppComponent extends AppComponentBase implements OnInit {
     this._layoutStore.sidebarExpanded.subscribe((value) => {
       this.sidebarExpanded = value;
     });
+
   }
 
   toggleSidebar(): void {
     this._layoutStore.setSidebarExpanded(!this.sidebarExpanded);
+    this._layoutStore.setChildAppsExpanded(true)
   }
 }
