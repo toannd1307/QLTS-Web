@@ -12,15 +12,15 @@
             <img class="user-image img-circle" style="border-radius: 0 !important; margin-top: -8px; height: 40px; width: 40px;" src="assets/img/avatar.png" alt="User Image" />
         </a>
         <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['update-password']">
+            <!-- <a class="dropdown-item" [routerLink]="['update-password']">
                 <i class="fas fa-user-edit"></i> Đổi mật khẩu
-            </a>
+            </a> -->
             <a class="dropdown-item" href="javascript:;" (click)="logout()">
                 <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </a>
         </div>
-            <a href="javascript:;" (click)="toggleChildApps()" class="nav-link m-l-5">
-                <i class="fab fa-windows"></i>
-            </a>
+        <a href="javascript:;" (click)="toggleChildApps()" class="nav-link m-l-5">
+            <i class="fab fa-windows"></i>
+        </a>
     </div>
 </li>

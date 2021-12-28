@@ -44,7 +44,7 @@ namespace DbEntities
         public virtual ICollection<TaiSanDinhKemFile> TaiSanDinhKemFileList { get; set; }
     }
 
-    [Table("vTaiSan")]
+    [Table("viewTaiSan")]
     public class ViewTaiSan : FullAuditedEntity
     {
         public virtual string TenTaiSan { get; set; }
@@ -58,7 +58,7 @@ namespace DbEntities
         public virtual int? HinhThuc { get; set; }
     }
 
-    [Table("vTaiSanSuaChuaBaoDuong")]
+    [Table("viewTaiSanSuaChuaBaoDuong")]
     public class ViewTaiSanSuaChuaBaoDuong : FullAuditedEntity
     {
         public virtual string EPCCode { get; set; }
@@ -78,7 +78,7 @@ namespace DbEntities
         public virtual long? PhieuTaiSanChiTietId { get; set; }
     }
 
-    [Table("vTaiSanMat")]
+    [Table("viewTaiSanMat")]
     public class ViewTaiSanMat : FullAuditedEntity
     {
         public virtual string EPCCode { get; set; }
@@ -97,7 +97,7 @@ namespace DbEntities
         public virtual string NguyenNhan { get; set; }
     }
 
-    [Table("vTaiSanHong")]
+    [Table("viewTaiSanHong")]
     public class ViewTaiSanHong : FullAuditedEntity
     {
         public virtual string EPCCode { get; set; }
@@ -116,7 +116,7 @@ namespace DbEntities
         public virtual string NguyenNhan { get; set; }
     }
 
-    [Table("vTaiSanThanhLy")]
+    [Table("viewTaiSanThanhLy")]
     public class ViewTaiSanThanhLy : FullAuditedEntity
     {
         public virtual string EPCCode { get; set; }
@@ -135,7 +135,7 @@ namespace DbEntities
         public virtual string NguyenNhan { get; set; }
     }
 
-    [Table("vTaiSanHuy")]
+    [Table("viewTaiSanHuy")]
     public class ViewTaiSanHuy : FullAuditedEntity
     {
         public virtual string EPCCode { get; set; }

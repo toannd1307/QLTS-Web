@@ -36,6 +36,7 @@ export class AppAuthService {
     loginCallback(data?: IAuthenticateSSOModel, finallyCallback?: () => void): void {
         finallyCallback = finallyCallback || (() => { });
         this._tokenAuthService.loginSSO(data).subscribe((result: AuthenticateSSOResultModel) => {
+            console.log(result);
             this._tokenAuthService.externalAuthenticate(new ExternalAuthenticateModel({
                 providerAccessCode: "Mobifone",
                 providerKey: result.id,
@@ -63,7 +64,7 @@ export class AppAuthService {
             );
             if (reload !== false) {
                 // sso
-                location.href = 'https://devsso.smart-office.vn/sso/logout?client_id=SMART_OFFICE_DEV&redirect_uri=http://localhost:4200/';
+                location.href = 'https://devsso.smart-office.vn/sso/logout?client_id=SMART_OFFICE_DEV&redirect_uri=https://devqlts.smart-office.vn';
                 //location.href = AppConsts.appBaseUrl;
             }
         });

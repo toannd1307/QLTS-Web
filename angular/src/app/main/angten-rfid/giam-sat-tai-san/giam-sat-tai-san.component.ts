@@ -71,7 +71,7 @@ export class GiamSatTaiSanComponent extends AppComponentBase implements OnInit {
   }
 
   getDataPage(isSearch: boolean, lazyLoad?: LazyLoadEvent) {
-    if (this.toChucValue.length > 0) {
+    if (isSearch) {
       this.loading = true;
       this._lichsuRaVaoAngtenServiceProxy.getAll(
         this.form.controls.keyword.value || undefined,

@@ -24,7 +24,7 @@ namespace DbEntities
         public virtual ICollection<PhieuTaiSanChiTiet> PhieuTaiSanChiTietList { get; set; }
     }
 
-    [Table("vKhaiBaoHongMat")]
+    [Table("viewKhaiBaoHongMat")]
     public class ViewKhaiBaoHongMat : FullAuditedEntity<long>
     {
         public virtual string PhongBanKhaiBao { get; set; }
@@ -36,7 +36,7 @@ namespace DbEntities
         public virtual int? KhaiBao { get; set; }
     }
 
-    [Table("vKhaiBaoHongMatChiTiet")]
+    [Table("viewKhaiBaoHongMatChiTiet")]
     public class ViewKhaiBaoHongMatChiTiet : FullAuditedEntity<long>
     {
         public virtual string PhongBanKhaiBao { get; set; }

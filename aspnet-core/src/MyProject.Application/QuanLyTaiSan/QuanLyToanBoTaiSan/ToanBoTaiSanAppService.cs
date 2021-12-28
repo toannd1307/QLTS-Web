@@ -512,74 +512,81 @@
             }
             #endregion
 
-            // Lấy danh sách cần xuất excel
-            var list = await this.GetAll(input);
-            using var package = new ExcelPackage();
-
-            // Add sheet
-            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("ToanBoTaiSan");
-
-            var namedStyle = package.Workbook.Styles.CreateNamedStyle("HyperLink");
-            namedStyle.Style.Font.UnderLine = true;
-            namedStyle.Style.Font.Color.SetColor(Color.Blue);
-
-            // set header
-            worksheet.Cells[1, 1].Value = "Mã tài sản (EPC)";
-            worksheet.Cells[1, 2].Value = "Tên tài sản";
-            worksheet.Cells[1, 3].Value = "Loại tài sản";
-            worksheet.Cells[1, 4].Value = "Serial Number";
-            worksheet.Cells[1, 5].Value = "Nhà cung cấp";
-            worksheet.Cells[1, 6].Value = "Ngày mua";
-            worksheet.Cells[1, 7].Value = "Nguyên giá";
-            worksheet.Cells[1, 8].Value = "Đơn vị quản lý";
-            worksheet.Cells[1, 9].Value = "Trạng thái";
-            worksheet.Cells[1, 10].Value = "Mã sử dụng";
-            worksheet.Cells[1, 11].Value = "Vị trí tài sản";
-
-            // Bôi đậm header
-            using (ExcelRange r = worksheet.Cells[1, 1, 1, 11])
+            try
             {
-                using var f = new Font("Calibri", 12, FontStyle.Bold);
-                r.Style.Font.SetFromFont(f);
-                r.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                // Lấy danh sách cần xuất excel
+                var list = await this.GetAll(input);
+                using var package = new ExcelPackage();
+
+                // Add sheet
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("ToanBoTaiSan");
+
+                var namedStyle = package.Workbook.Styles.CreateNamedStyle("HyperLink");
+                namedStyle.Style.Font.UnderLine = true;
+                namedStyle.Style.Font.Color.SetColor(Color.Blue);
+
+                // set header
+                worksheet.Cells[1, 1].Value = "Mã tài sản (EPC)";
+                worksheet.Cells[1, 2].Value = "Tên tài sản";
+                worksheet.Cells[1, 3].Value = "Loại tài sản";
+                worksheet.Cells[1, 4].Value = "Serial Number";
+                worksheet.Cells[1, 5].Value = "Nhà cung cấp";
+                worksheet.Cells[1, 6].Value = "Ngày mua";
+                worksheet.Cells[1, 7].Value = "Nguyên giá";
+                worksheet.Cells[1, 8].Value = "Đơn vị quản lý";
+                worksheet.Cells[1, 9].Value = "Trạng thái";
+                worksheet.Cells[1, 10].Value = "Mã sử dụng";
+                worksheet.Cells[1, 11].Value = "Vị trí tài sản";
+
+                // Bôi đậm header
+                using (ExcelRange r = worksheet.Cells[1, 1, 1, 11])
+                {
+                    using var f = new Font("Calibri", 12, FontStyle.Bold);
+                    r.Style.Font.SetFromFont(f);
+                    r.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                }
+
+                // Gan gia tri
+                var rowNumber = 2;
+                list.Items.ToList().ForEach(item =>
+                {
+                    worksheet.Cells[rowNumber, 1].Value = item.MaEPC;
+                    worksheet.Cells[rowNumber, 2].Value = item.TenTS;
+                    worksheet.Cells[rowNumber, 3].Value = item.LoaiTS;
+                    worksheet.Cells[rowNumber, 4].Value = item.SerialNumber;
+                    worksheet.Cells[rowNumber, 5].Value = item.NhaCungCap;
+                    worksheet.Cells[rowNumber, 6].Value = item.NgayMua;
+                    worksheet.Cells[rowNumber, 7].Value = item.NguyenGia;
+                    worksheet.Cells[rowNumber, 8].Value = item.PhongBanQL;
+                    worksheet.Cells[rowNumber, 9].Value = item.TrangThai;
+                    worksheet.Cells[rowNumber, 10].Value = item.MaSD;
+                    worksheet.Cells[rowNumber, 11].Value = item.ViTriTS;
+                    rowNumber++;
+                });
+
+                // Cho các ô rộng theo dữ liệu
+                worksheet.Cells.AutoFitColumns(0);
+
+                worksheet.PrinterSettings.FitToHeight = 1;
+
+                // Tên file
+                var fileName = string.Join(".", new string[] { "Danh sách toàn bộ tài sản", "xlsx" });
+
+                // Lưu file vào server
+                using (var stream = new MemoryStream())
+                {
+                    package.SaveAs(stream);
+                }
+
+                var file = new FileDto(fileName, MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
+                var filePath = Path.Combine(this.appFolders.TempFileDownloadFolder, file.FileToken);
+                package.SaveAs(new FileInfo(filePath));
+                return file;
+            } catch (Exception error)
+            {
+                this.Logger.Error("Error export excel: " + error.Message);
+                throw new UserFriendlyException("Có lỗi: " + error.Message);
             }
-
-            // Gan gia tri
-            var rowNumber = 2;
-            list.Items.ToList().ForEach(item =>
-            {
-                worksheet.Cells[rowNumber, 1].Value = item.MaEPC;
-                worksheet.Cells[rowNumber, 2].Value = item.TenTS;
-                worksheet.Cells[rowNumber, 3].Value = item.LoaiTS;
-                worksheet.Cells[rowNumber, 4].Value = item.SerialNumber;
-                worksheet.Cells[rowNumber, 5].Value = item.NhaCungCap;
-                worksheet.Cells[rowNumber, 6].Value = item.NgayMua;
-                worksheet.Cells[rowNumber, 7].Value = item.NguyenGia;
-                worksheet.Cells[rowNumber, 8].Value = item.PhongBanQL;
-                worksheet.Cells[rowNumber, 9].Value = item.TrangThai;
-                worksheet.Cells[rowNumber, 10].Value = item.MaSD;
-                worksheet.Cells[rowNumber, 11].Value = item.ViTriTS;
-                rowNumber++;
-            });
-
-            // Cho các ô rộng theo dữ liệu
-            worksheet.Cells.AutoFitColumns(0);
-
-            worksheet.PrinterSettings.FitToHeight = 1;
-
-            // Tên file
-            var fileName = string.Join(".", new string[] { "Danh sách toàn bộ tài sản", "xlsx" });
-
-            // Lưu file vào server
-            using (var stream = new MemoryStream())
-            {
-                package.SaveAs(stream);
-            }
-
-            var file = new FileDto(fileName, MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
-            var filePath = Path.Combine(this.appFolders.TempFileDownloadFolder, file.FileToken);
-            package.SaveAs(new FileInfo(filePath));
-            return file;
         }
 
         public async Task<FileDto> DownloadFileMau()

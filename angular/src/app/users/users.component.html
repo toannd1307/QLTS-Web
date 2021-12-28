@@ -5,11 +5,11 @@
                 <div class="col-6">
                     <h1>Quản lý Người dùng</h1>
                 </div>
-                <div class="col-6 text-right">
+                <!-- <div class="col-6 text-right">
                     <button type="button" class="btn btn-primary m-r-5" (click)="createUser()">
                         <i class="fa fa-plus"></i>
                         <span style="margin-left: 5px;">Thêm mới</span></button>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -23,9 +23,7 @@
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control" name="keyword"
-                            [placeholder]="'Nhập tên đăng nhập, họ tên người dùng, email, số điện thoại' | localize"
-                            [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
+                        <input type="text" class="form-control" name="keyword" [placeholder]="'Nhập tên đăng nhập, họ tên người dùng, email, số điện thoại' | localize" [(ngModel)]="keyword" (keyup.enter)="getDataPage(true)" />
                     </div>
                     <form class="form-horizontal">
                         <div class="row ui-fluid m-t-10">
@@ -33,8 +31,7 @@
                                 <div class="form-group">
                                     <dft-label-validation [title]="'Đơn vị'">
                                     </dft-label-validation>
-                                    <app-multiple-select-tree [dataEdit]="toChucTrees"
-                                        (onSelect)="toChucValue = $event">
+                                    <app-multiple-select-tree [dataEdit]="toChucTrees" (onSelect)="toChucValue = $event">
                                     </app-multiple-select-tree>
                                     <dft-validation></dft-validation>
                                 </div>
@@ -43,12 +40,8 @@
                     </form>
                 </div>
                 <div>
-                    <p-table #dt [value]="users" [lazy]="true" [(first)]="first"
-                        (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading"
-                        [showCurrentPageReport]="showCurrentPageReport"
-                        currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
-                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions"
-                        [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
+                    <p-table #dt [value]="users" [lazy]="true" [(first)]="first" (onLazyLoad)="getDataPage(false,$event)" [paginator]="paginator" [loading]="loading" [showCurrentPageReport]="showCurrentPageReport" currentPageReportTemplate="{{totalCount==0?'':' Hiển thị: {first}-{last}/{totalRecords}'}} "
+                        [rows]="paginatorRows" [totalRecords]="totalCount" [rowsPerPageOptions]="rowsPerPageOptions" [scrollable]="scrollable" scrollHeight="{{scrollHeight}}">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th class="width-30"></th>
@@ -79,19 +72,17 @@
                             <tr class="ui-selectable-row">
                                 <td class="width-30">
                                     <div class="dropdown">
-                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action"
-                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
+                                        <button class="dropdown-toggle btn btn-sm btn-transparent btn-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" (click)="viewUser(record,true)">Xem</a>
-                                            <a class="dropdown-item" (click)="editUser(record)">Cập
+                                            <!-- <a class="dropdown-item" (click)="editUser(record)">Cập
                                                 nhật</a>
                                             <a class="dropdown-item" (click)="resetPassword(record)">Khôi phục mật
                                                 khẩu</a>
                                             <a class="dropdown-item" (click)="updateRole(record)">Phân quyền</a>
-                                            <a class="dropdown-item" (click)="delete(record)">Xóa</a>
+                                            <a class="dropdown-item" (click)="delete(record)">Xóa</a> -->
                                         </div>
                                     </div>
                                 </td>
@@ -115,8 +106,7 @@
                                 </td>
                                 <td class="width-100">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" disabled
-                                            [checked]="record.isActive" />
+                                        <input type="checkbox" class="custom-control-input" disabled [checked]="record.isActive" />
                                         <label class="custom-control-label"></label>
                                     </div>
                                 </td>

@@ -19,7 +19,7 @@ namespace DbEntities
         public virtual string GhiChu { get; set; }
     }
 
-    [Table("vPhieuTaiSanChiTiet")]
+    [Table("viewPhieuTaiSanChiTiet")]
     public class ViewPhieuTaiSanChiTiet : FullAuditedEntity<long>
     {
         public virtual long? PhieuTaiSanId { get; set; }

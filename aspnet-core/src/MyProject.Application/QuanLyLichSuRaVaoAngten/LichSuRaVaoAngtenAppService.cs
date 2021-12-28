@@ -74,7 +74,7 @@ namespace MyProject.QuanLyLichSuRaVaoAngten
                          .WhereIf(input.StartDate != null && input.EndDate != null, item => item.Ngay >= input.StartDate && item.Ngay <= input.EndDate)
                          from taiSan in this.taiSanRepository.GetAll().Where(e => e.Id == lichSu.TaiSanId)
                           .DefaultIfEmpty()
-                         from toChuc in this.toChucRepository.GetAll().Where(e => e.Id == lichSu.ToChuc)
+                         from toChuc in this.toChucRepository.GetAll().Where(e => e.Id == lichSu.ToChuc).DefaultIfEmpty()
                          select new LichSuRaVaoForViewDto
                          {
                              Id = lichSu.Id,
@@ -216,7 +216,7 @@ namespace MyProject.QuanLyLichSuRaVaoAngten
             }
             #endregion
 
-            // L?y danh s?ch c?n xu?t excel
+            // Lấy danh sách xuất excel
             var list = await this.GetAll(input);
             using var package = new ExcelPackage();
 
@@ -235,7 +235,7 @@ namespace MyProject.QuanLyLichSuRaVaoAngten
             worksheet.Cells[1, 5].Value = "Chiều di chuyển";
             worksheet.Cells[1, 6].Value = "Phân loại";
 
-            // B?i ??m header
+            // Build header cho excel
             using (ExcelRange r = worksheet.Cells[1, 1, 1, 6])
             {
                 using var f = new Font("Calibri", 12, FontStyle.Bold);
@@ -243,7 +243,7 @@ namespace MyProject.QuanLyLichSuRaVaoAngten
                 r.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
             }
 
-            // Gan gia tri
+            // Gán giá trị
             var rowNumber = 2;
             list.Items.ToList().ForEach(item =>
             {
@@ -256,15 +256,15 @@ namespace MyProject.QuanLyLichSuRaVaoAngten
                 rowNumber++;
             });
 
-            // Cho c?c ? r?ng theo d? li?u
+            // Cho các cột riêng theo giá trị
             worksheet.Cells.AutoFitColumns(0);
 
             worksheet.PrinterSettings.FitToHeight = 1;
 
-            // T?n file
+            // Tên file
             var fileName = string.Join(".", new string[] { "Danh sách giám sát tài sản", "xlsx" });
 
-            // L?u file v?o server
+            // Lưu file vào server
             using (var stream = new MemoryStream())
             {
                 package.SaveAs(stream);
